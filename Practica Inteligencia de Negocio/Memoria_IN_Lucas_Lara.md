@@ -73,6 +73,14 @@ En resumen, el uso de estas dimensiones y atributos permite analizar de forma de
 
 <image src="capturas/DisenioLogico.drawio.png" alt="DFM">
 
+Para esta tarea se ha utilizado el **modelo en estrella**, el cual, tiene una tabla de hechos central que se conecta a una serie de tablas de dimensiones independientes. Esta estructura simplifica la escritura de consultas y las hace más rápidas y eficientes.
+
+Además, es adecuado para conjuntos de datos que tienen medidas bien definidas y datos relacionales de baja complejidad. En el caso del modelo de fútbol que estoy utilizando, las medidas son claramente definidas (goles, posesión, tarjetas, etc.) y las relaciones entre las tablas son simples y directas.
+
+Además, como no se espera una gran cantidad de cambios en los atributos de las dimensiones, se optó por no implementar Slowly Changing Dimensions (SCDs), lo que simplifica el diseño y la implementación del modelo.
+
+También se decidió utilizar claves primarias subrogadas para cada tabla de dimensión, ya que esto simplifica la gestión de las relaciones entre las tablas y evita posibles problemas de rendimiento al utilizar claves naturales.
+
 ***
 ### **Tarea 1.3 (0,4 ptos)**
 
