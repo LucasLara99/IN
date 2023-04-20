@@ -13,7 +13,7 @@ Las tareas específicas a realizar se detallan a continuación.*
 
 **Solución:**  
 
-<image src="capturas/DFM-Page-1.png" alt="DFM">
+<image src="capturas/DFM.png" alt="DFM">
 
 El **hecho** principal de este modelo de datos es **Partido**, que representa un evento deportivo, concretamente un encuentro de fútbol, en el que dos equipos compiten entre sí. Un Partido tiene los siguientes atributos:
 
@@ -38,7 +38,7 @@ A continuación se detallan las dimensiones que se han definido para este modelo
 
 - **Dimensión Equipo**
 
-    Esta dimensión representa los equipos que participan en los partidos. Se compone de los atributos **nombre**, **ciudad** y **entrenador**. Esta dimensión tiene una doble asociación con el hecho Partido para distinguir entre **equipo local y visitante**. La inclusión de esta dimensión permite analizar el rendimiento de los equipos en distintos partidos y en diferentes ciudades, así como la influencia de los entrenadores en el desempeño del equipo.
+    Esta dimensión representa los equipos que participan en los partidos. Se compone de los atributos **nombre**, **pais** y **entrenador**. Esta dimensión tiene una doble asociación con el hecho Partido para distinguir entre **equipo local y visitante**. La inclusión de esta dimensión permite analizar el rendimiento de los equipos en distintos partidos y en diferentes paises, así como la influencia de los entrenadores en el desempeño del equipo.
 
 - **Dimensión Estadio**
 
@@ -71,7 +71,7 @@ En resumen, el uso de estas dimensiones y atributos permite analizar de forma de
 
 **Solución:**  
 
-<image src="capturas/DisenioLogico.png" alt="Diseño Logico">
+<image src="capturas/ModeloLogico.png" alt="Modelo Logico">
 
 Para esta tarea se ha utilizado el **modelo en estrella**, el cual, tiene una tabla de hechos central que se conecta a una serie de tablas de dimensiones independientes. Esta estructura simplifica la escritura de consultas y las hace más rápidas y eficientes.
 
@@ -112,7 +112,7 @@ CREATE TABLE "lucas.lara"."DIM_EQUIPO"
    (	"ID_EQUIPO" NUMBER(*,0) NOT NULL ENABLE, 
 	"EQUIPO" VARCHAR2(100) NOT NULL ENABLE, 
 	"NOMBRE" VARCHAR2(100) NOT NULL ENABLE, 
-	"CIUDAD" VARCHAR2(100) NOT NULL ENABLE, 
+	"PAIS" VARCHAR2(100) NOT NULL ENABLE, 
 	"ENTRENADOR" VARCHAR2(100) NOT NULL ENABLE, 
 	 CONSTRAINT "DIM_EQUIPO_PK" PRIMARY KEY ("ID_EQUIPO")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
@@ -250,7 +250,7 @@ CREATE UNIQUE INDEX "lucas.lara"."FACT_PARTIDO_PK" ON "lucas.lara"."FACT_PARTIDO
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
 
-<image src="capturas/Diagrama-Oracle.png" alt="Tablas Oracle">  
+<image src="capturas/Diagrama_Oracle.png" alt="Tablas Oracle">  
 
 Una vez creadas las tablas, el siguiente paso es cargar datos en ellas. A continuación se muestran los scripts de inserción de datos en cada una de las tablas:
 
@@ -313,16 +313,48 @@ INSERT INTO "lucas.lara".DIM_ESTADIO (ID_ESTADIO,ESTADIO,UBICACION,NOMBRE) VALUE
 
 ```sql
 INSERT INTO "lucas.lara".DIM_FECHA (ID_FECHA,FECHA,DIA,MES,TEMPORADA,AÑO) VALUES
-    (1,'2020-09-12','12','09','2020/2021','2020'),
-    (2,'2020-09-13','13','09','2020/2021','2020'),
-    (3,'2020-09-14','14','09','2020/2021','2020'),
-    (4,'2020-09-15','15','09','2020/2021','2020'),
-    (5,'2020-09-16','16','09','2020/2021','2020'),
-    (6,'2020-09-17','17','09','2020/2021','2020'),
-    (7,'2020-09-18','18','09','2020/2021','2020'),
-    (8,'2020-09-19','19','09','2020/2021','2020'),
-    (9,'2020-09-20','20','09','2020/2021','2020'),
-    (10,'2020-09-21','21','09','2020/2021','2020');
+	 (1,'25/01/2020','25','1','2019/2020',2020),
+	 (2,'15/02/2020','15','2','2019/2020',2020),
+	 (3,'27/02/2021','27','2','2020/2021',2021),
+	 (4,'01/05/2021','1','5','2020/2021',2021),
+	 (5,'05/03/2022','5','3','2021/2022',2022),
+	 (6,'09/04/2022','9','4','2021/2022',2022),
+	 (7,'22/10/2022','22','10','2022/2023',2022),
+	 (8,'13/11/2022','13','11','2022/2023',2022),
+	 (9,'28/05/2023','28','5','2022/2023',2023);
+```
+
+**DIM_EQUIPO :**
+
+```sql
+INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VALUES
+	 (1,'FC Barcelona - España - Xavi Hernández','Fc Barcelona','España','Xavi Hernández'),
+	 (2,'Real Madrid - España - Carlo Ancelotti','Real Madrid','España','Carlo Ancelotti'),
+	 (3,'Atlético de Madrid - España - Diego Simeone','Atlético de Madrid','España','Diego Simeone'),
+	 (4,'Sevilla FC - España - Julen Lopetegui','Sevilla FC','España','Julen Lopetegui'),
+	 (5,'Real Sociedad - España - Imanol Alguacil','Real Sociedad','España','Imanol Alguacil'),
+	 (6,'Paris Saint-Germain - Francia - Mauricio Pochettino','Paris Saint-Germain','Francia','Mauricio Pochettino'),
+	 (7,'Olympique de Marsella - Francia - Jorge Sampaoli','Olympique de Marsella','Francia','Jorge Sampaoli'),
+	 (8,'Lille OSC - Francia - Jocelyn Gourvennec','Lille OSC','Francia','Jocelyn Gourvennec'),
+	 (9,'AS Monaco - Francia - Niko Kovac','As Monaco','Francia','Niko Kovac'),
+	 (10,'Olympique Lyonnais - Francia - Peter Bosz','Olympique Lyonnais','Francia','Peter Bosz');
+INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VALUES
+	 (11,'Manchester City - Inglaterra - Pep Guardiola','Manchester City','Inglaterra','Pep Guardiola'),
+	 (12,'Manchester United - Inglaterra - Erik ten Hag','Manchester United','Inglaterra','Erik ten Hag'),
+	 (13,'Chelsea FC - Inglaterra - Frank Lampard','Chelsea FC','Inglaterra','Frank Lampard'),
+	 (14,'Liverpool FC - Inglaterra - Jurgen Klopp','Liverpool FC','Inglaterra','Jurgen Klopp'),
+	 (15,'Leicester City - Inglaterra - Brendan Rodgers','Leicester City','Inglaterra','Brendan Rodgers'),
+	 (16,'AC Milan - Italia - Stefano Pioli','Ac Milan','Italia','Stefano Pioli'),
+	 (17,'Inter Milan - Italia - Simone Inzaghi','Inter Milan','Italia','Simone Inzaghi'),
+	 (18,'Juventus FC - Italia - Massimiliano Allegri','Juventus FC','Italia','Massimiliano Allegri'),
+	 (19,'AS Roma - Italia - José Mourinho','As Roma','Italia','José Mourinho'),
+	 (20,'Napoli - Italia - Luciano Spalletti','Napoli ','Italia','Luciano Spalletti');
+INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VALUES
+	 (21,'Bayern Munich - Alemania - Thomas Tuchel','Bayern Munich','Alemania','Thomas Tuchel'),
+	 (22,'Borussia Dortmund - Alemania - Marco Rose','Borussia Dortmund','Alemania','Marco Rose'),
+	 (23,'RB Leipzig - Alemania - Jesse Marsch','Rb Leipzig','Alemania','Jesse Marsch'),
+	 (24,'Bayer Leverkusen - Alemania - Gerardo Seoane','Bayer Leverkusen','Alemania','Gerardo Seoane'),
+	 (25,'Eintracht Frankfurt - Alemania - Oliver Glasner','Eintracht Frankfurt','Alemania','Oliver Glasner');
 ```
 
 ***
