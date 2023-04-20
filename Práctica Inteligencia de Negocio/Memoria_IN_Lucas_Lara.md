@@ -357,6 +357,27 @@ INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VA
 	 (25,'Eintracht Frankfurt - Alemania - Oliver Glasner','Eintracht Frankfurt','Alemania','Oliver Glasner');
 ```
 
+**FACT_PARTIDO :**
+
+```sql
+INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
+	 (1,1,24,1,10,1,5,2,0,'71','29',7,5,2,1,0,1),
+	 (3,2,23,2,9,2,4,0,0,'52','48',2,0,6,2,0,0),
+	 (5,3,22,3,8,3,3,4,3,'62','38',0,1,4,3,0,0),
+	 (7,4,21,4,7,4,2,0,1,'39','61',9,7,2,3,1,0),
+	 (9,5,20,5,6,5,1,3,1,'55','45',11,12,0,2,0,0),
+	 (2,6,19,6,5,1,5,1,0,'80','20',3,4,1,1,0,1),
+	 (4,7,18,7,4,2,4,1,1,'28','72',4,3,5,6,0,0),
+	 (6,8,17,8,3,3,3,2,2,'64','36',7,10,4,0,2,0),
+	 (8,9,16,9,2,4,2,2,3,'57','43',10,0,4,0,0,0),
+	 (3,10,15,10,1,5,1,0,0,'36','64',5,1,3,4,0,0);
+INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
+	 (5,11,14,3,9,2,3,1,2,'67','33',1,4,0,2,0,1),
+	 (9,12,13,6,5,4,4,1,1,'51','49',14,9,6,5,1,0);
+```
+
+Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en iccube, para ello se debe ir a la pestaña de **Data Warehouse** y luego a **Data Warehouse Designer**. Una vez en el diseñador de esquemas se debe ir a la pestaña de **Data Sources** y luego a **New Data Source**. En la ventana que se abre se debe seleccionar la opción **SQL Server** y luego dar click en **Next**. En la siguiente ventana se debe ingresar la dirección del servidor de la base de datos, en este caso es **localhost**, el nombre de la base de datos es **lucas.lara** y el usuario y contraseña son **lucas.lara**. Una vez ingresados los datos se debe dar click en **Test Connection** para verificar que la conexión se haya realizado correctamente, si es así se debe dar click en **Finish**.
+
 ***
 ### **Tarea 1.3 (0,4 ptos)**
 
