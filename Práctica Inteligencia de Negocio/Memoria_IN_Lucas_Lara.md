@@ -13,7 +13,7 @@ Las tareas específicas a realizar se detallan a continuación.*
 
 **Solución:**  
 
-<image src="capturas/DFM-Page-1.drawio.png" alt="DFM">
+<image src="capturas/DFM-Page-1.png" alt="DFM">
 
 El **hecho** principal de este modelo de datos es **Partido**, que representa un evento deportivo, concretamente un encuentro de fútbol, en el que dos equipos compiten entre sí. Un Partido tiene los siguientes atributos:
 
@@ -46,7 +46,7 @@ A continuación se detallan las dimensiones que se han definido para este modelo
 
 - **Dimensión Competición**
 
-    Esta dimensión representa la competición en la que se disputa el partido. Se compone de los atributos **país** y **temporada** y el atributo descriptivo **nombre**. Usar esta dimensión permite analizar el rendimiento de los equipos en distintas competiciones, así como en diferentes países y temporadas.
+    Esta dimensión representa la competición en la que se disputa el partido. Se compone del atributo **país** y el atributo descriptivo **nombre**. Usar esta dimensión permite analizar el rendimiento de los equipos en distintas competiciones, así como en diferentes países y temporadas.
 
 - **Dimensión Árbitro**
 
@@ -71,7 +71,7 @@ En resumen, el uso de estas dimensiones y atributos permite analizar de forma de
 
 **Solución:**  
 
-<image src="capturas/DisenioLogico.drawio.png" alt="Diseño Logico">
+<image src="capturas/DisenioLogico.png" alt="Diseño Logico">
 
 Para esta tarea se ha utilizado el **modelo en estrella**, el cual, tiene una tabla de hechos central que se conecta a una serie de tablas de dimensiones independientes. Esta estructura simplifica la escritura de consultas y las hace más rápidas y eficientes.
 
@@ -169,7 +169,6 @@ CREATE TABLE "lucas.lara"."DIM_COMPETICION"
    (	"ID_COMPETICION" NUMBER(*,0) NOT NULL ENABLE, 
 	"COMPETICION" VARCHAR2(100) NOT NULL ENABLE, 
 	"PAIS" VARCHAR2(100) NOT NULL ENABLE, 
-	"TEMPORADA" VARCHAR2(100) NOT NULL ENABLE, 
 	"NOMBRE" VARCHAR2(100) NOT NULL ENABLE, 
 	 CONSTRAINT "DIM_COMPETICION_PK" PRIMARY KEY ("ID_COMPETICION")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
@@ -247,7 +246,6 @@ CREATE UNIQUE INDEX "lucas.lara"."FACT_PARTIDO_PK" ON "lucas.lara"."FACT_PARTIDO
   PCTFREE 10 INITRANS 2 MAXTRANS 255 
   TABLESPACE "USERS" ;
 ;
-
 ```
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
