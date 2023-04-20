@@ -250,7 +250,80 @@ CREATE UNIQUE INDEX "lucas.lara"."FACT_PARTIDO_PK" ON "lucas.lara"."FACT_PARTIDO
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
 
-<image src="capturas/DiagramaOracle.png" alt="Tablas Oracle">
+<image src="capturas/Diagrama-Oracle.png" alt="Tablas Oracle">  
+
+Una vez creadas las tablas, el siguiente paso es cargar datos en ellas. A continuación se muestran los scripts de inserción de datos en cada una de las tablas:
+
+**DIM_ARBITRO :**
+
+```sql
+INSERT INTO "lucas.lara".DIM_ARBITRO (ID_ARBITRO,ARBITRO,NACIONALIDAD,NOMBRE) VALUES
+	 (1,'Carlos Del Cerro Grande - España','España','Carlos Del Cerro Grande'),
+	 (2,'Michael Oliver - Inglaterra','Inglaterra','Michael Oliver'),
+	 (3,'Sergey Karasev - Rusia','Rusia','Sergey Karasev'),
+	 (4,'Felix Zwayer - Alemania','Alemania','Felix Zwayer'),
+	 (5,'Jesus Gil Manzano - España','España','Jesus Gil Manzano');
+```
+
+**DIM_COMPETICION :**
+
+```sql
+INSERT INTO "lucas.lara".DIM_COMPETICION (ID_COMPETICION,COMPETICION,PAIS,NOMBRE) VALUES
+	 (1,'Liga Santader - España','España','Liga Santander'),
+	 (2,'Serie A - Italia','Italia','Serie A'),
+	 (3,'Premier League - Inglaterra','Inglaterra','Premier League'),
+	 (4,'Bundesliga - Alemania','Alemania','Bundesliga'),
+	 (5,'Ligue One - Francia','Francia','Ligue One');
+
+```  
+
+**DIM_LESION :**
+
+```sql
+INSERT INTO "lucas.lara".DIM_LESION (ID_LESION,LESION,JUGADOR,TIEMPO_RECUPERACION) VALUES
+	 (1,'Esguince de tobillo - Lionel Messi - 21 días','Lionel Messi','21 días'),
+	 (2,'Lesión muscular - Neymar Jr - 10 días','Neymar Jr','10 días'),
+	 (3,'Rotura de ligamentos - Eden Hazard - 6 meses','Eden Hazard','6 meses'),
+	 (4,'Fractura de pierna - Hector Bellerin - 8 meses','Hector Bellerin','8 meses'),
+	 (5,'Esguince de rodilla - Sergio Ramos - 1 mes','Sergio Ramos','1 mes'),
+	 (6,'Lesión en la espalda - Kylian Mbappe - 2 semanas','Kylian Mbappe','2 semanas'),
+	 (7,'Pubalgia - Luis Suarez - 4 semanas','Luis Suarez','4 semanas'),
+	 (8,'Lesión en el hombro - Kevin De Bruyne - 3 semanas','Kevin De Bruyne','3 semanas'),
+	 (9,'Lesión en la muñeca - Marco Asensio - 2 semanas','Marco Asensio','2 semanas'),
+	 (10,'Distensión de ligamentos - Paulo Dybala - 4 semanas','Paulo Dybala','4 semanas');
+```
+
+**DIM_ESTADIO :**
+
+```sql
+INSERT INTO "lucas.lara".DIM_ESTADIO (ID_ESTADIO,ESTADIO,UBICACION,NOMBRE) VALUES
+	 (1,'Camp Nou - España','España','Camp Nou'),
+	 (2,'Santiago Bernabeu - España','España','Santiago Bernabeu'),
+	 (3,'Wembley Stadium - Inglaterra','Inglaterra','Wembley Stadium'),
+	 (4,'San Siro - Italia','Italia','San Siro'),
+	 (5,'Allianz Arena - Alemania','Alemania','Allianz Arena'),
+	 (6,'Parc des Princes - Francia','Francia','Parc des Princes'),
+	 (7,'Old Trafford - Inglaterra','Inglaterra','Old Trafford'),
+	 (8,'Anfield - Inglaterra','Inglaterra','Anfield'),
+	 (9,'Signal Iduna Park - Alemania','Alemania','Signal Iduna Park'),
+	 (10,'Juventus Stadium - Italia','Italia','Juventus Stadium');
+```
+
+**DIM_FECHA :**
+
+```sql
+INSERT INTO "lucas.lara".DIM_FECHA (ID_FECHA,FECHA,DIA,MES,TEMPORADA,AÑO) VALUES
+    (1,'2020-09-12','12','09','2020/2021','2020'),
+    (2,'2020-09-13','13','09','2020/2021','2020'),
+    (3,'2020-09-14','14','09','2020/2021','2020'),
+    (4,'2020-09-15','15','09','2020/2021','2020'),
+    (5,'2020-09-16','16','09','2020/2021','2020'),
+    (6,'2020-09-17','17','09','2020/2021','2020'),
+    (7,'2020-09-18','18','09','2020/2021','2020'),
+    (8,'2020-09-19','19','09','2020/2021','2020'),
+    (9,'2020-09-20','20','09','2020/2021','2020'),
+    (10,'2020-09-21','21','09','2020/2021','2020');
+```
 
 ***
 ### **Tarea 1.3 (0,4 ptos)**
