@@ -301,8 +301,58 @@ Finalmente, se agrupa el resultado por el nombre del equipo y se ordena en orden
 **3ª Consulta SQL**
 
 ```sql
-
+WITH p AS (
+  SELECT 
+    id_equipolocal AS id_equipo, 
+    goleslocal AS goles, 
+    golesvisitante AS goles_rival, 
+    CASE WHEN goleslocal > golesvisitante THEN 3 
+         WHEN goleslocal = golesvisitante THEN 1 
+         ELSE 0 END AS puntos
+  FROM fact_partido
+  UNION ALL
+  SELECT 
+    id_equipovisitante AS id_equipo, 
+    golesvisitante AS goles, 
+    goleslocal AS goles_rival, 
+    CASE WHEN goleslocal < golesvisitante THEN 3 
+         WHEN goleslocal = golesvisitante THEN 1 
+         ELSE 0 END AS puntos
+  FROM fact_partido
+), 
+c AS (
+  SELECT 
+    id_equipo, 
+    SUM(goles) AS goles_favor, 
+    SUM(goles_rival) AS goles_contra, 
+    SUM(puntos) AS puntos, 
+    ROW_NUMBER() OVER (ORDER BY SUM(puntos) DESC, SUM(goles) DESC, SUM(goles) - SUM(goles_rival) DESC, id_equipo ASC) AS posicion
+  FROM p
+  GROUP BY id_equipo
+)
+SELECT 
+  d.nombre AS equipo, 
+  c.puntos, 
+  c.goles_favor, 
+  c.goles_contra, 
+  c.goles_favor - c.goles_contra AS diferencia_goles, 
+  c.posicion
+FROM 
+  c 
+  JOIN dim_equipo d ON c.id_equipo = d.id_equipo
+ORDER BY 
+  c.posicion ASC;
 ```	
+
+Esta consulta realiza una tabla de posiciones de un torneo de fútbol. La consulta utiliza dos expresiones comunes (CTEs) llamadas "p" y "c".
+
+La expresión común "p" utiliza una unión de dos consultas para obtener los goles y los puntos de cada equipo en cada partido. La primera consulta se enfoca en los goles y puntos anotados por el equipo local, mientras que la segunda consulta se enfoca en los goles y puntos anotados por el equipo visitante. La columna "puntos" se calcula utilizando una estructura CASE, que asigna 3 puntos por victoria, 1 punto por empate y 0 puntos por derrota.
+
+La expresión común "c" utiliza la tabla generada por "p" para calcular los goles a favor, los goles en contra, los puntos y la posición de cada equipo en la tabla de posiciones. La función de ventana ROW_NUMBER() se utiliza para asignar una posición a cada equipo en función de su puntuación total, diferencia de goles y ID de equipo.
+
+La consulta final utiliza un JOIN con la tabla de dimensión "dim_equipo" para obtener el nombre del equipo correspondiente a cada ID de equipo y muestra las columnas de puntos, goles a favor, goles en contra, diferencia de goles y posición, ordenadas por la posición. El resultado se muestra en la siguiente imagen:
+
+<image src="capturas/ConsultaSQL3.JPG" alt="Consulta 3 SQL">
 
 ***
 ## **Ejercicio 2 (0,8 ptos):**
