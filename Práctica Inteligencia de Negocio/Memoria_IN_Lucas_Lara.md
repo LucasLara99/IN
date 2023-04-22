@@ -81,7 +81,7 @@ Además, como no se espera una gran cantidad de cambios en los atributos de las 
 
 También se decidió utilizar claves primarias subrogadas para cada tabla de dimensión, ya que esto simplifica la gestión de las relaciones entre las tablas y evita posibles problemas de rendimiento al utilizar claves naturales.
 
-Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El script de creación de las tablas se puede consultar en el archivo de la entrega *CreacionTablas.sql*
+Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El script de creación de las tablas se puede consultar en el archivo de la entrega ***CreacionTablas.sql***.
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
 
@@ -224,7 +224,7 @@ INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANT
 	 (8,10,9,6,4,5,5,0,1,'61','39',6,4,3,1,0,0);
 ```
 
-Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables.
+Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables. Posteriormente se crean las relaciones entre las DataTables, las dimensiones y las medidas. Finalmente se crea el cubo y se cargan los datos en él. El esquema se puede consultar en el archivo ***esquema.icc-schema*** adjunto.
 
 ***
 ### **Tarea 1.3 (0,4 ptos)**
@@ -235,7 +235,76 @@ Una vez cargados los datos en la base de datos se procede a cargar el esquema ge
 
 **Solución:**  
 
+He de aclarar antes de la resolución de los ejercicios que algunos de los resultados de ejecutar las consultas no reflejan datos realistas ya que para ello se debería de contar con un dataset que englobase el total de los partidos de todas las temporadas de todas las competiciones. No obstante las consultas son correctas y lógicas en cuanto a su resultado dados los datos disponibles, y si se ejecutasen con un dataset más completo se obtendrían resultados más realistas.
 
+**1ª Consulta SQL:**
+
+```sql
+SELECT 
+    c.competicion AS competicion,
+    f.temporada AS temporada,
+    e.ubicacion AS estadio,
+    COUNT(DISTINCT p.id_fecha) AS num_partidos,
+    AVG(p.tiroslocal) AS avg_tiros_local,
+    AVG(p.tirosvisitante) AS avg_tiros_visitante,
+    SUM(p.tarjetasamarillaslocal + p.tarjetasrojaslocal) AS tarjetas_local,
+    SUM(p.tarjetasamarillasvisitante + p.tarjetasrojasvisitante) AS tarjetas_visitante,
+    SUM(CASE WHEN p.goleslocal > p.golesvisitante THEN 1 ELSE 0 END) AS victorias_local,
+    SUM(CASE WHEN p.goleslocal < p.golesvisitante THEN 1 ELSE 0 END) AS victorias_visitante,
+    SUM(CASE WHEN p.goleslocal = p.golesvisitante THEN 1 ELSE 0 END) AS empates
+FROM 
+    dim_competicion c
+    JOIN fact_partido p ON c.id_competicion = p.id_competicion
+    JOIN dim_fecha f ON p.id_fecha = f.id_fecha
+    JOIN dim_estadio e ON p.id_estadio = e.id_estadio
+GROUP BY 
+    c.competicion,
+    f.temporada,
+    e.ubicacion
+ORDER BY 
+    c.competicion,
+    f.temporada,
+    num_partidos DESC;
+```
+Esta consulta realiza un análisis estadístico de los partidos de fútbol en una temporada determinada y una ubicación específica del estadio, agrupando los resultados por competición. La consulta utiliza las tablas dimensionales de competición, partido, fecha y estadio para obtener información sobre los partidos, y realiza cálculos como el número de partidos, promedio de tiros, tarjetas y victorias locales/visitantes/empates.
+
+La consulta utiliza una cláusula GROUP BY para agrupar los resultados por competición, temporada y ubicación del estadio, y utiliza funciones de agregación como COUNT, AVG y SUM para calcular los datos estadísticos. Además, utiliza la cláusula ORDER BY para ordenar los resultados por competición, temporada y número de partidos en orden descendente.
+
+***
+
+**2ª Consulta SQL**
+
+```sql
+SELECT 
+    e.nombre AS equipo,
+    SUM(CASE WHEN p.goleslocal > p.golesvisitante AND e.id_equipo = p.id_equipolocal THEN 1 ELSE 0 END) AS victorias_local,
+    SUM(CASE WHEN p.goleslocal < p.golesvisitante AND e.id_equipo = p.id_equipovisitante THEN 1 ELSE 0 END) AS victorias_visitante,
+    SUM(CASE WHEN p.goleslocal = p.golesvisitante THEN 1 ELSE 0 END) AS empates,
+    SUM(CASE WHEN (e.id_equipo = p.id_equipolocal AND p.golesvisitante > p.goleslocal) OR (e.id_equipo = p.id_equipovisitante AND p.golesvisitante < p.goleslocal) THEN 1 ELSE 0 END) AS derrotas
+FROM 
+    dim_equipo e
+    JOIN fact_partido p ON e.id_equipo = p.id_equipolocal OR e.id_equipo = p.id_equipovisitante
+GROUP BY 
+    e.nombre
+ORDER BY 
+    victorias_local DESC;
+```	
+
+Esta consulta utiliza la cláusula JOIN para combinar dos tablas: dim_equipo y fact_partido. La tabla dim_equipo contiene información sobre los equipos, mientras que la tabla fact_partido contiene información sobre los partidos, incluyendo los goles marcados por cada equipo.
+
+La consulta utiliza la función SUM() junto con la cláusula CASE WHEN para contar el número de victorias, empates y derrotas de un equipo. Para contar las victorias locales, se utiliza la condición p.goleslocal > p.golesvisitante AND e.id_equipo = p.id_equipolocal, que indica que el equipo debe haber jugado en casa y haber marcado más goles que el equipo visitante. De manera similar, para contar las victorias visitantes se utiliza la condición p.goleslocal < p.golesvisitante AND e.id_equipo = p.id_equipovisitante. Para contar los empates, se utiliza la condición p.goleslocal = p.golesvisitante. Finalmente, para contar las derrotas se utiliza la condición (e.id_equipo = p.id_equipolocal AND p.golesvisitante > p.goleslocal) OR (e.id_equipo = p.id_equipovisitante AND p.golesvisitante < p.goleslocal), que indica que el equipo debe haber jugado en casa y haber marcado menos goles que el equipo visitante, o haber jugado como visitante y haber marcado menos goles que el equipo local.
+
+La consulta agrupa los resultados por nombre de equipo y los ordena en orden descendente según el número de victorias locales. El resultado de la consulta es una tabla con el nombre de cada equipo y el número de victorias locales, visitantes, empates y derrotas, como se muestra en la siguiente imagen:
+
+<image src="capturas/ConsultaSQL2.JPG" alt="Consulta 2 SQL">
+
+***
+
+**3ª Consulta SQL**
+
+```sql
+
+```	
 
 ***
 ## **Ejercicio 2 (0,8 ptos):**
