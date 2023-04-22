@@ -134,14 +134,14 @@ INSERT INTO "lucas.lara".DIM_LESION (ID_LESION,LESION,JUGADOR,TIEMPO_RECUPERACIO
 INSERT INTO "lucas.lara".DIM_ESTADIO (ID_ESTADIO,ESTADIO,UBICACION,NOMBRE) VALUES
 	 (1,'Camp Nou - España','España','Camp Nou'),
 	 (2,'Santiago Bernabeu - España','España','Santiago Bernabeu'),
-	 (3,'Wembley Stadium - Inglaterra','Inglaterra','Wembley Stadium'),
-	 (4,'San Siro - Italia','Italia','San Siro'),
-	 (5,'Allianz Arena - Alemania','Alemania','Allianz Arena'),
-	 (6,'Parc des Princes - Francia','Francia','Parc des Princes'),
-	 (7,'Old Trafford - Inglaterra','Inglaterra','Old Trafford'),
-	 (8,'Anfield - Inglaterra','Inglaterra','Anfield'),
-	 (9,'Signal Iduna Park - Alemania','Alemania','Signal Iduna Park'),
-	 (10,'Juventus Stadium - Italia','Italia','Juventus Stadium');
+	 (3,'Parc des Princes - Francia','Francia','Parc des Princes'),
+	 (4,'Estade Velodrome - France','Francia','Estade Velodrome'),
+	 (5,'Emirates Stadium - Inglaterra','Inglaterra','Emirates Stadium'),
+	 (6,'Old Trafford - Inglaterra','Inglaterra','Old Trafford'),
+	 (7,'San Siro - Italia','Italia','San Siro'),
+	 (8,'San Siro - Italia','Italia','San Siro'),
+	 (9,'Allianz Arena - Alemania','Alemania','Allianz Arena'),
+	 (10,'Signal Iduna Park - Alemania','Alemania','Signal Iduna Park');
 ```
 
 Para la tabla **DIM_FECHA** se han añadido 8 fechas, 2 jornadas por 4 de las últimas temporadas. El script de inserción de datos es el siguiente:
@@ -175,7 +175,7 @@ INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VA
 	 (10,'Borussia Dortmund - Alemania - Marco Rose','Borussia Dortmund','Alemania','Marco Rose');
 ```
 
-Para la tabla **FACT_PARTIDO** se han añadido 10 partidos para cada temporada, es decir, 2 jornadas distintas para cada competición en cada temporada. Por lo tanto la tabla FACT_PARTIDO tiene 40 filas. Se ha seguido una lógica en la que cada temporada se dan dos partidos de cada liga, concretamente el mismo enfrentamiento, pero en diferentes condiciones, por ejemplo, para la temporada 19/20 podemos ver el partido Barcelona vs Madrid en una fecha y en la otra el Madrid Barcelona. El script de inserción de datos es el siguiente:
+**Importante:** Para la tabla **FACT_PARTIDO** se han añadido 10 partidos para cada temporada, es decir, 2 jornadas distintas para cada competición en cada temporada. Por lo tanto la tabla FACT_PARTIDO tiene 40 filas. Se ha seguido una lógica en la que cada temporada se dan dos partidos de cada liga, concretamente el mismo enfrentamiento, pero en diferentes condiciones, por ejemplo, para la temporada 19/20 podemos ver el partido Barcelona vs Madrid en una fecha y en la otra el Madrid Barcelona. También es conveniente aclarar que cada partido se juega en el estadio del equipo local. El script de inserción de datos es el siguiente:
 
 ```sql
 INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
@@ -190,38 +190,38 @@ INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANT
 	 (1,9,10,9,2,5,4,2,3,'57','43',10,0,4,0,0,0),
 	 (2,10,9,10,1,5,2,0,0,'36','64',5,1,3,4,0,0);
 INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
-	 (3,1,2,2,9,1,3,1,2,'67','33',1,4,0,2,0,1),
-	 (4,2,1,3,5,1,1,1,1,'51','49',14,9,6,5,1,0),
-	 (3,3,4,4,1,2,5,2,1,'29','71',4,11,0,3,0,0),
-	 (4,4,3,5,2,2,2,5,0,'48','52',8,2,2,4,0,0),
-	 (3,5,6,6,3,3,4,3,0,'38','62',2,8,1,2,0,0),
-	 (4,6,5,7,4,3,3,0,1,'61','39',6,4,3,1,0,0),
-	 (3,7,8,8,5,4,1,2,2,'45','55',5,6,4,5,1,1),
-	 (4,8,7,9,6,4,3,0,4,'20','80',0,7,5,6,0,0),
-	 (3,9,10,10,7,5,2,1,3,'72','28',7,1,5,2,0,0),
-	 (4,10,9,1,8,5,4,6,3,'36','64',12,9,1,0,0,0);
+	 (3,1,2,1,9,1,3,1,2,'67','33',1,4,0,2,0,1),
+	 (4,2,1,2,5,1,1,1,1,'51','49',14,9,6,5,1,0),
+	 (3,3,4,3,1,2,5,2,1,'29','71',4,11,0,3,0,0),
+	 (4,4,3,4,2,2,2,5,0,'48','52',8,2,2,4,0,0),
+	 (3,5,6,5,3,3,4,3,0,'38','62',2,8,1,2,0,0),
+	 (4,6,5,6,4,3,3,0,1,'61','39',6,4,3,1,0,0),
+	 (3,7,8,7,5,4,1,2,2,'45','55',5,6,4,5,1,1),
+	 (4,8,7,8,6,4,3,0,4,'20','80',0,7,5,6,0,0),
+	 (3,9,10,9,7,5,2,1,3,'72','28',7,1,5,2,0,0),
+	 (4,10,9,10,8,5,4,6,3,'36','64',12,9,1,0,0,0);
 INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
-	 (5,1,2,5,9,1,5,0,0,'43','57',4,3,0,0,0,1),
-	 (6,2,1,6,1,1,3,1,1,'64','36',3,5,4,1,0,0),
-	 (5,3,4,7,2,2,5,1,2,'33','67',6,4,2,4,0,0),
-	 (6,4,3,8,3,2,1,0,5,'49','51',8,2,0,2,1,0),
-	 (5,5,6,9,10,3,4,2,0,'71','29',7,5,2,1,0,1),
-	 (6,6,5,10,9,3,2,0,0,'52','48',2,0,6,2,0,0),
-	 (5,7,8,1,8,4,5,4,3,'62','38',0,1,4,3,0,0),
-	 (6,8,7,2,7,4,4,0,1,'39','61',9,7,2,3,1,0),
-	 (5,9,10,3,6,5,3,3,1,'55','45',11,12,0,2,0,0),
-	 (6,10,9,4,5,5,1,1,0,'80','20',3,4,1,1,0,1);
+	 (5,1,2,1,9,1,5,0,0,'43','57',4,3,0,0,0,1),
+	 (6,2,1,2,1,1,3,1,1,'64','36',3,5,4,1,0,0),
+	 (5,3,4,3,2,2,5,1,2,'33','67',6,4,2,4,0,0),
+	 (6,4,3,4,3,2,1,0,5,'49','51',8,2,0,2,1,0),
+	 (5,5,6,5,10,3,4,2,0,'71','29',7,5,2,1,0,1),
+	 (6,6,5,6,9,3,2,0,0,'52','48',2,0,6,2,0,0),
+	 (5,7,8,7,8,4,5,4,3,'62','38',0,1,4,3,0,0),
+	 (6,8,7,8,7,4,4,0,1,'39','61',9,7,2,3,1,0),
+	 (5,9,10,9,6,5,3,3,1,'55','45',11,12,0,2,0,0),
+	 (6,10,9,10,5,5,1,1,0,'80','20',3,4,1,1,0,1);
 INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
-	 (7,1,2,7,4,1,5,1,1,'28','72',4,3,5,6,0,0),
-	 (8,2,1,8,3,1,2,2,2,'64','36',7,10,4,0,2,0),
-	 (7,3,4,9,2,2,4,2,3,'57','43',10,0,4,0,0,0),
-	 (8,4,3,10,1,2,1,0,0,'36','64',5,1,3,4,0,0),
-	 (7,5,6,1,9,3,4,1,2,'67','33',1,4,0,2,0,1),
-	 (8,6,5,2,5,3,1,1,1,'51','49',14,9,6,5,1,0),
-	 (7,7,8,3,1,4,3,2,1,'29','71',4,11,0,3,0,0),
-	 (8,8,7,4,2,4,2,5,0,'48','52',8,2,2,4,0,0),
-	 (7,9,10,5,3,5,3,3,0,'38','62',2,8,1,2,0,0),
-	 (8,10,9,6,4,5,5,0,1,'61','39',6,4,3,1,0,0);
+	 (7,1,2,1,4,1,5,1,1,'28','72',4,3,5,6,0,0),
+	 (8,2,1,2,3,1,2,2,2,'64','36',7,10,4,0,2,0),
+	 (7,3,4,3,2,2,4,2,3,'57','43',10,0,4,0,0,0),
+	 (8,4,3,4,1,2,1,0,0,'36','64',5,1,3,4,0,0),
+	 (7,5,6,5,9,3,4,1,2,'67','33',1,4,0,2,0,1),
+	 (8,6,5,6,5,3,1,1,1,'51','49',14,9,6,5,1,0),
+	 (7,7,8,7,1,4,3,2,1,'29','71',4,11,0,3,0,0),
+	 (8,8,7,8,2,4,2,5,0,'48','52',8,2,2,4,0,0),
+	 (7,9,10,9,3,5,3,3,0,'38','62',2,8,1,2,0,0),
+	 (8,10,9,10,4,5,5,0,1,'61','39',6,4,3,1,0,0);
 ```
 
 Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables. Posteriormente se crean las relaciones entre las DataTables, las dimensiones y las medidas. Finalmente se crea el cubo y se cargan los datos en él. El esquema se puede consultar en el archivo ***esquema.icc-schema*** adjunto.
@@ -240,35 +240,31 @@ He de aclarar antes de la resolución de los ejercicios que algunos de los resul
 **1ª Consulta SQL:**
 
 ```sql
-SELECT 
-    c.competicion AS competicion,
-    f.temporada AS temporada,
-    e.ubicacion AS estadio,
-    COUNT(DISTINCT p.id_fecha) AS num_partidos,
-    AVG(p.tiroslocal) AS avg_tiros_local,
-    AVG(p.tirosvisitante) AS avg_tiros_visitante,
-    SUM(p.tarjetasamarillaslocal + p.tarjetasrojaslocal) AS tarjetas_local,
-    SUM(p.tarjetasamarillasvisitante + p.tarjetasrojasvisitante) AS tarjetas_visitante,
-    SUM(CASE WHEN p.goleslocal > p.golesvisitante THEN 1 ELSE 0 END) AS victorias_local,
-    SUM(CASE WHEN p.goleslocal < p.golesvisitante THEN 1 ELSE 0 END) AS victorias_visitante,
-    SUM(CASE WHEN p.goleslocal = p.golesvisitante THEN 1 ELSE 0 END) AS empates
-FROM 
-    dim_competicion c
-    JOIN fact_partido p ON c.id_competicion = p.id_competicion
-    JOIN dim_fecha f ON p.id_fecha = f.id_fecha
-    JOIN dim_estadio e ON p.id_estadio = e.id_estadio
-GROUP BY 
-    c.competicion,
-    f.temporada,
-    e.ubicacion
-ORDER BY 
-    c.competicion,
-    f.temporada,
-    num_partidos DESC;
+SELECT dim_competicion.competicion, dim_fecha.temporada, 
+       SUM(fact_partido.tarjetasamarillaslocal) AS amarillas_local, 
+       SUM(fact_partido.tarjetasrojaslocal) AS rojas_local, 
+       SUM(fact_partido.tarjetasamarillasvisitante) AS amarillas_visitante, 
+       SUM(fact_partido.tarjetasrojasvisitante) AS rojas_visitante
+FROM fact_partido
+INNER JOIN dim_fecha ON fact_partido.id_fecha = dim_fecha.id_fecha
+INNER JOIN dim_competicion ON fact_partido.id_competicion = dim_competicion.id_competicion
+GROUP BY ROLLUP(dim_competicion.competicion, dim_fecha.temporada)
+ORDER BY dim_competicion.competicion, dim_fecha.temporada
 ```
-Esta consulta realiza un análisis estadístico de los partidos de fútbol en una temporada determinada y una ubicación específica del estadio, agrupando los resultados por competición. La consulta utiliza las tablas dimensionales de competición, partido, fecha y estadio para obtener información sobre los partidos, y realiza cálculos como el número de partidos, promedio de tiros, tarjetas y victorias locales/visitantes/empates.
 
-La consulta utiliza una cláusula GROUP BY para agrupar los resultados por competición, temporada y ubicación del estadio, y utiliza funciones de agregación como COUNT, AVG y SUM para calcular los datos estadísticos. Además, utiliza la cláusula ORDER BY para ordenar los resultados por competición, temporada y número de partidos en orden descendente.
+Esta consulta realiza una consulta utilizando agrupamientos analíticos, en este caso la función ROLLUP, para obtener la cantidad de tarjetas amarillas y rojas recibidas por los equipos locales y visitantes en cada temporada de cada competición. 
+
+Primero, se seleccionan las columnas que se van a mostrar en la consulta: el nombre de la competición, la temporada, la suma de tarjetas amarillas y rojas recibidas por los equipos locales y visitantes. 
+
+Luego, se realizan tres INNER JOIN con las tablas dim_fecha, dim_competicion y fact_partido para obtener la información requerida.
+
+A continuación, se agrupa la información utilizando la función ROLLUP, lo que genera una jerarquía de grupos anidados en los que se muestran los totales para cada nivel de agregación. En este caso, se agrupa primero por la competición y la temporada, y luego se agrega un nivel de total global que incluye todas las competiciones y temporadas.
+
+Por último, se ordena la información por competición y temporada.
+
+El resultado de la consulta es el siguiente:
+
+<image src="capturas/ConsultaSQL1.JPG" alt="Consulta 1 SQL">
 
 ***
 
@@ -290,11 +286,13 @@ ORDER BY
     victorias_local DESC;
 ```	
 
-Esta consulta utiliza la cláusula JOIN para combinar dos tablas: dim_equipo y fact_partido. La tabla dim_equipo contiene información sobre los equipos, mientras que la tabla fact_partido contiene información sobre los partidos, incluyendo los goles marcados por cada equipo.
+Esta consulta SQL analítica utiliza funciones de agregación condicionales (SUM y CASE) para calcular el número de victorias como local y visitante, empates y derrotas para cada equipo en la tabla dim_equipo.
 
-La consulta utiliza la función SUM() junto con la cláusula CASE WHEN para contar el número de victorias, empates y derrotas de un equipo. Para contar las victorias locales, se utiliza la condición p.goleslocal > p.golesvisitante AND e.id_equipo = p.id_equipolocal, que indica que el equipo debe haber jugado en casa y haber marcado más goles que el equipo visitante. De manera similar, para contar las victorias visitantes se utiliza la condición p.goleslocal < p.golesvisitante AND e.id_equipo = p.id_equipovisitante. Para contar los empates, se utiliza la condición p.goleslocal = p.golesvisitante. Finalmente, para contar las derrotas se utiliza la condición (e.id_equipo = p.id_equipolocal AND p.golesvisitante > p.goleslocal) OR (e.id_equipo = p.id_equipovisitante AND p.golesvisitante < p.goleslocal), que indica que el equipo debe haber jugado en casa y haber marcado menos goles que el equipo visitante, o haber jugado como visitante y haber marcado menos goles que el equipo local.
+La consulta se une con la tabla fact_partido usando las columnas id_equipolocal e id_equipovisitante para obtener los partidos en los que cada equipo participó ya sea como local o visitante.
 
-La consulta agrupa los resultados por nombre de equipo y los ordena en orden descendente según el número de victorias locales. El resultado de la consulta es una tabla con el nombre de cada equipo y el número de victorias locales, visitantes, empates y derrotas, como se muestra en la siguiente imagen:
+Luego, se usa una función condicional CASE dentro de la función de agregación SUM para contar el número de victorias locales, visitantes, empates y derrotas para cada equipo. Si el equipo es el equipo local y ganó el partido, se suma 1 a victorias_local; si el equipo es el visitante y ganó el partido, se suma 1 a victorias_visitante; si el partido resultó en empate, se suma 1 a empates; si el equipo perdió el partido, se suma 1 a derrotas.
+
+Finalmente, se agrupa el resultado por el nombre del equipo y se ordena en orden descendente según el número de victorias locales, como se muestra en la siguiente imagen:
 
 <image src="capturas/ConsultaSQL2.JPG" alt="Consulta 2 SQL">
 
