@@ -81,172 +81,7 @@ Además, como no se espera una gran cantidad de cambios en los atributos de las 
 
 También se decidió utilizar claves primarias subrogadas para cada tabla de dimensión, ya que esto simplifica la gestión de las relaciones entre las tablas y evita posibles problemas de rendimiento al utilizar claves naturales.
 
-Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El script de creación de las tablas es el siguiente:
-
-```sql
--- DROP USER "lucas.lara";
-
-CREATE USER "lucas.lara"
--- IDENTIFIED BY <password>
-;
-
-CREATE TABLE "lucas.lara"."DIM_ESTADIO" 
-   (	"ID_ESTADIO" NUMBER(*,0) NOT NULL ENABLE, 
-	"ESTADIO" VARCHAR2(100) NOT NULL ENABLE, 
-	"UBICACION" VARCHAR2(200) NOT NULL ENABLE, 
-	"NOMBRE" VARCHAR2(100) NOT NULL ENABLE, 
-	 CONSTRAINT "DIM_ESTADIO_PK" PRIMARY KEY ("ID_ESTADIO")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-CREATE UNIQUE INDEX "lucas.lara"."DIM_ESTADIO_PK" ON "lucas.lara"."DIM_ESTADIO" ("ID_ESTADIO") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
-;
-
-CREATE TABLE "lucas.lara"."DIM_EQUIPO" 
-   (	"ID_EQUIPO" NUMBER(*,0) NOT NULL ENABLE, 
-	"EQUIPO" VARCHAR2(100) NOT NULL ENABLE, 
-	"NOMBRE" VARCHAR2(100) NOT NULL ENABLE, 
-	"PAIS" VARCHAR2(100) NOT NULL ENABLE, 
-	"ENTRENADOR" VARCHAR2(100) NOT NULL ENABLE, 
-	 CONSTRAINT "DIM_EQUIPO_PK" PRIMARY KEY ("ID_EQUIPO")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS"  ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-CREATE UNIQUE INDEX "lucas.lara"."DIM_EQUIPO_PK" ON "lucas.lara"."DIM_EQUIPO" ("ID_EQUIPO") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS" ;
-;
-
-CREATE TABLE "lucas.lara"."DIM_FECHA" 
-   (	"ID_FECHA" NUMBER(*,0) NOT NULL ENABLE, 
-	"FECHA" VARCHAR2(100) NOT NULL ENABLE, 
-	"DIA" VARCHAR2(100) NOT NULL ENABLE, 
-	"MES" VARCHAR2(100) NOT NULL ENABLE, 
-	"TEMPORADA" VARCHAR2(100) NOT NULL ENABLE, 
-	"AÑO" NUMBER(*,0) NOT NULL ENABLE, 
-	 CONSTRAINT "DIM_FECHA_PK" PRIMARY KEY ("ID_FECHA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS"  ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-CREATE UNIQUE INDEX "lucas.lara"."DIM_FECHA_PK" ON "lucas.lara"."DIM_FECHA" ("ID_FECHA") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS" ;
-;
-
-CREATE TABLE "lucas.lara"."DIM_LESION" 
-   (	"ID_LESION" NUMBER(*,0) NOT NULL ENABLE, 
-	"LESION" VARCHAR2(150) NOT NULL ENABLE, 
-	"JUGADOR" VARCHAR2(100) NOT NULL ENABLE, 
-	"TIEMPO_RECUPERACION" VARCHAR2(100) NOT NULL ENABLE, 
-	 CONSTRAINT "DIM_LESION_PK" PRIMARY KEY ("ID_LESION")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS"  ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-CREATE UNIQUE INDEX "lucas.lara"."DIM_LESION_PK" ON "lucas.lara"."DIM_LESION" ("ID_LESION") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS" ;
-;
-
-CREATE TABLE "lucas.lara"."DIM_COMPETICION" 
-   (	"ID_COMPETICION" NUMBER(*,0) NOT NULL ENABLE, 
-	"COMPETICION" VARCHAR2(100) NOT NULL ENABLE, 
-	"PAIS" VARCHAR2(100) NOT NULL ENABLE, 
-	"NOMBRE" VARCHAR2(100) NOT NULL ENABLE, 
-	 CONSTRAINT "DIM_COMPETICION_PK" PRIMARY KEY ("ID_COMPETICION")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS"  ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-CREATE UNIQUE INDEX "lucas.lara"."DIM_COMPETICION_PK" ON "lucas.lara"."DIM_COMPETICION" ("ID_COMPETICION") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS" ;
-;
-
-CREATE TABLE "lucas.lara"."DIM_ARBITRO" 
-   (	"ID_ARBITRO" NUMBER(*,0) NOT NULL ENABLE, 
-	"ARBITRO" VARCHAR2(100) NOT NULL ENABLE, 
-	"NACIONALIDAD" VARCHAR2(100) NOT NULL ENABLE, 
-	"NOMBRE" VARCHAR2(100) NOT NULL ENABLE, 
-	 CONSTRAINT "DIM_ARBITRO_PK" PRIMARY KEY ("ID_ARBITRO")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS"  ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-CREATE UNIQUE INDEX "lucas.lara"."DIM_ARBITRO_PK" ON "lucas.lara"."DIM_ARBITRO" ("ID_ARBITRO") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS" ;
-;
-
-CREATE TABLE "lucas.lara"."FACT_PARTIDO" 
-   (	"ID_FECHA" NUMBER(*,0) NOT NULL ENABLE, 
-	"ID_EQUIPOLOCAL" NUMBER(*,0) NOT NULL ENABLE, 
-	"ID_EQUIPOVISITANTE" NUMBER(*,0) NOT NULL ENABLE, 
-	"ID_ESTADIO" NUMBER(*,0) NOT NULL ENABLE, 
-	"ID_LESION" NUMBER(*,0) NOT NULL ENABLE, 
-	"ID_COMPETICION" NUMBER(*,0) NOT NULL ENABLE, 
-	"ID_ARBITRO" NUMBER(*,0) NOT NULL ENABLE, 
-	"GOLESLOCAL" NUMBER(*,0) NOT NULL ENABLE, 
-	"GOLESVISITANTE" NUMBER(*,0) NOT NULL ENABLE, 
-	"POSESIONLOCAL" VARCHAR2(100) NOT NULL ENABLE, 
-	"POSESIONVISITANTE" VARCHAR2(100) NOT NULL ENABLE, 
-	"TIROSLOCAL" NUMBER(*,0) NOT NULL ENABLE, 
-	"TIROSVISITANTE" NUMBER(*,0) NOT NULL ENABLE, 
-	"TARJETASAMARILLASLOCAL" NUMBER(*,0) NOT NULL ENABLE, 
-	"TARJETASAMARILLASVISITANTE" NUMBER(*,0) NOT NULL ENABLE, 
-	"TARJETASROJASLOCAL" NUMBER(*,0) NOT NULL ENABLE, 
-	"TARJETASROJASVISITANTE" NUMBER(*,0) NOT NULL ENABLE, 
-	 CONSTRAINT "FACT_PARTIDO_PK" PRIMARY KEY ("ID_FECHA", "ID_EQUIPOLOCAL", "ID_EQUIPOVISITANTE", "ID_ESTADIO", "ID_LESION", "ID_COMPETICION", "ID_ARBITRO")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS"  ENABLE
-   ) SEGMENT CREATION DEFERRED 
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
- NOCOMPRESS LOGGING
-  TABLESPACE "USERS" ;
-
-ALTER TABLE "lucas.lara"."FACT_PARTIDO" ADD CONSTRAINT "FK_DIM_ARBITRO" FOREIGN KEY ("ID_ARBITRO")
-	  REFERENCES "lucas.lara"."DIM_ARBITRO" ("ID_ARBITRO") ENABLE;
-  ALTER TABLE "lucas.lara"."FACT_PARTIDO" ADD CONSTRAINT "FK_DIM_COMPETICION" FOREIGN KEY ("ID_COMPETICION")
-	  REFERENCES "lucas.lara"."DIM_COMPETICION" ("ID_COMPETICION") ENABLE;
-  ALTER TABLE "lucas.lara"."FACT_PARTIDO" ADD CONSTRAINT "FK_DIM_EQUIPO_LOCAL" FOREIGN KEY ("ID_EQUIPOLOCAL")
-	  REFERENCES "lucas.lara"."DIM_EQUIPO" ("ID_EQUIPO") ENABLE;
-  ALTER TABLE "lucas.lara"."FACT_PARTIDO" ADD CONSTRAINT "FK_DIM_EQUIPO_VISITANTE" FOREIGN KEY ("ID_EQUIPOVISITANTE")
-	  REFERENCES "lucas.lara"."DIM_EQUIPO" ("ID_EQUIPO") ENABLE;
-  ALTER TABLE "lucas.lara"."FACT_PARTIDO" ADD CONSTRAINT "FK_DIM_ESTADIO" FOREIGN KEY ("ID_ESTADIO")
-	  REFERENCES "lucas.lara"."DIM_ESTADIO" ("ID_ESTADIO") ENABLE;
-  ALTER TABLE "lucas.lara"."FACT_PARTIDO" ADD CONSTRAINT "FK_DIM_FECHA" FOREIGN KEY ("ID_FECHA")
-	  REFERENCES "lucas.lara"."DIM_FECHA" ("ID_FECHA") ENABLE;
-  ALTER TABLE "lucas.lara"."FACT_PARTIDO" ADD CONSTRAINT "FK_DIM_LESION" FOREIGN KEY ("ID_LESION")
-	  REFERENCES "lucas.lara"."DIM_LESION" ("ID_LESION") ENABLE;
-
-CREATE UNIQUE INDEX "lucas.lara"."FACT_PARTIDO_PK" ON "lucas.lara"."FACT_PARTIDO" ("ID_FECHA", "ID_EQUIPOLOCAL", "ID_EQUIPOVISITANTE", "ID_ESTADIO", "ID_LESION", "ID_COMPETICION", "ID_ARBITRO") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 
-  TABLESPACE "USERS" ;
-;
-```
+Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El script de creación de las tablas se puede consultar en el archivo de la entrega *CreacionTablas.sql*
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
 
@@ -309,74 +144,87 @@ INSERT INTO "lucas.lara".DIM_ESTADIO (ID_ESTADIO,ESTADIO,UBICACION,NOMBRE) VALUE
 	 (10,'Juventus Stadium - Italia','Italia','Juventus Stadium');
 ```
 
-**DIM_FECHA :**
+Para la tabla **DIM_FECHA** se han añadido 8 fechas, 2 jornadas por 4 de las últimas temporadas. El script de inserción de datos es el siguiente:
 
 ```sql
 INSERT INTO "lucas.lara".DIM_FECHA (ID_FECHA,FECHA,DIA,MES,TEMPORADA,AÑO) VALUES
 	 (1,'25/01/2020','25','1','2019/2020',2020),
-	 (2,'15/02/2020','15','2','2019/2020',2020),
+	 (2,'14/03/2020','14','3','2019/2020',2020),
 	 (3,'27/02/2021','27','2','2020/2021',2021),
-	 (4,'01/05/2021','1','5','2020/2021',2021),
+	 (4,'17/04/2021','17','4','2020/2021',2021),
 	 (5,'05/03/2022','5','3','2021/2022',2022),
-	 (6,'09/04/2022','9','4','2021/2022',2022),
-	 (7,'22/10/2022','22','10','2022/2023',2022),
-	 (8,'13/11/2022','13','11','2022/2023',2022),
-	 (9,'28/05/2023','28','5','2022/2023',2023);
+	 (6,'28/05/2022','28','5','2021/2022',2022),
+	 (7,'11/02/2023','11','2','2022/2023',2023),
+	 (8,'28/05/2023','28','5','2022/2023',2023);
+
 ```
 
-**DIM_EQUIPO :**
+En la **DIM_EQUIPO** se han añadido 2 equipos de cada liga, haciendo referencia a los 2 primeros clasificados de cada una de ellas. El script de inserción de datos es el siguiente:
 
 ```sql
 INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VALUES
 	 (1,'FC Barcelona - España - Xavi Hernández','Fc Barcelona','España','Xavi Hernández'),
 	 (2,'Real Madrid - España - Carlo Ancelotti','Real Madrid','España','Carlo Ancelotti'),
-	 (3,'Atlético de Madrid - España - Diego Simeone','Atlético de Madrid','España','Diego Simeone'),
-	 (4,'Sevilla FC - España - Julen Lopetegui','Sevilla FC','España','Julen Lopetegui'),
-	 (5,'Real Sociedad - España - Imanol Alguacil','Real Sociedad','España','Imanol Alguacil'),
-	 (6,'Paris Saint-Germain - Francia - Mauricio Pochettino','Paris Saint-Germain','Francia','Mauricio Pochettino'),
-	 (7,'Olympique de Marsella - Francia - Jorge Sampaoli','Olympique de Marsella','Francia','Jorge Sampaoli'),
-	 (8,'Lille OSC - Francia - Jocelyn Gourvennec','Lille OSC','Francia','Jocelyn Gourvennec'),
-	 (9,'AS Monaco - Francia - Niko Kovac','As Monaco','Francia','Niko Kovac'),
-	 (10,'Olympique Lyonnais - Francia - Peter Bosz','Olympique Lyonnais','Francia','Peter Bosz');
-INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VALUES
-	 (11,'Manchester City - Inglaterra - Pep Guardiola','Manchester City','Inglaterra','Pep Guardiola'),
-	 (12,'Manchester United - Inglaterra - Erik ten Hag','Manchester United','Inglaterra','Erik ten Hag'),
-	 (13,'Chelsea FC - Inglaterra - Frank Lampard','Chelsea FC','Inglaterra','Frank Lampard'),
-	 (14,'Liverpool FC - Inglaterra - Jurgen Klopp','Liverpool FC','Inglaterra','Jurgen Klopp'),
-	 (15,'Leicester City - Inglaterra - Brendan Rodgers','Leicester City','Inglaterra','Brendan Rodgers'),
-	 (16,'AC Milan - Italia - Stefano Pioli','Ac Milan','Italia','Stefano Pioli'),
-	 (17,'Inter Milan - Italia - Simone Inzaghi','Inter Milan','Italia','Simone Inzaghi'),
-	 (18,'Juventus FC - Italia - Massimiliano Allegri','Juventus FC','Italia','Massimiliano Allegri'),
-	 (19,'AS Roma - Italia - José Mourinho','As Roma','Italia','José Mourinho'),
-	 (20,'Napoli - Italia - Luciano Spalletti','Napoli ','Italia','Luciano Spalletti');
-INSERT INTO "lucas.lara".DIM_EQUIPO (ID_EQUIPO,EQUIPO,NOMBRE,PAIS,ENTRENADOR) VALUES
-	 (21,'Bayern Munich - Alemania - Thomas Tuchel','Bayern Munich','Alemania','Thomas Tuchel'),
-	 (22,'Borussia Dortmund - Alemania - Marco Rose','Borussia Dortmund','Alemania','Marco Rose'),
-	 (23,'RB Leipzig - Alemania - Jesse Marsch','Rb Leipzig','Alemania','Jesse Marsch'),
-	 (24,'Bayer Leverkusen - Alemania - Gerardo Seoane','Bayer Leverkusen','Alemania','Gerardo Seoane'),
-	 (25,'Eintracht Frankfurt - Alemania - Oliver Glasner','Eintracht Frankfurt','Alemania','Oliver Glasner');
+	 (3,'Paris Saint-Germain - Francia - Mauricio Pochettino','Paris Saint-Germain','Francia','Mauricio Pochettino'),
+	 (4,'Olympique de Marsella - Francia - Jorge Sampaoli','Olympique de Marsella','Francia','Jorge Sampaoli'),
+	 (5,'Manchester City - Inglaterra - Pep Guardiola','Manchester City','Inglaterra','Pep Guardiola'),
+	 (6,'Manchester United - Inglaterra - Erik ten Hag','Manchester United','Inglaterra','Erik ten Hag'),
+	 (7,'AC Milan - Italia - Stefano Pioli','Ac Milan','Italia','Stefano Pioli'),
+	 (8,'Inter Milan - Italia - Simone Inzaghi','Inter Milan','Italia','Simone Inzaghi'),
+	 (9,'Bayern Munich - Alemania - Thomas Tuchel','Bayern Munich','Alemania','Thomas Tuchel'),
+	 (10,'Borussia Dortmund - Alemania - Marco Rose','Borussia Dortmund','Alemania','Marco Rose');
 ```
 
-**FACT_PARTIDO :**
+Para la tabla **FACT_PARTIDO** se han añadido 10 partidos para cada temporada, es decir, 2 jornadas distintas para cada competición en cada temporada. Por lo tanto la tabla FACT_PARTIDO tiene 40 filas. Se ha seguido una lógica en la que cada temporada se dan dos partidos de cada liga, concretamente el mismo enfrentamiento, pero en diferentes condiciones, por ejemplo, para la temporada 19/20 podemos ver el partido Barcelona vs Madrid en una fecha y en la otra el Madrid Barcelona. El script de inserción de datos es el siguiente:
 
 ```sql
 INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
-	 (1,1,24,1,10,1,5,2,0,'71','29',7,5,2,1,0,1),
-	 (3,2,23,2,9,2,4,0,0,'52','48',2,0,6,2,0,0),
-	 (5,3,22,3,8,3,3,4,3,'62','38',0,1,4,3,0,0),
-	 (7,4,21,4,7,4,2,0,1,'39','61',9,7,2,3,1,0),
-	 (9,5,20,5,6,5,1,3,1,'55','45',11,12,0,2,0,0),
-	 (2,6,19,6,5,1,5,1,0,'80','20',3,4,1,1,0,1),
-	 (4,7,18,7,4,2,4,1,1,'28','72',4,3,5,6,0,0),
-	 (6,8,17,8,3,3,3,2,2,'64','36',7,10,4,0,2,0),
-	 (8,9,16,9,2,4,2,2,3,'57','43',10,0,4,0,0,0),
-	 (3,10,15,10,1,5,1,0,0,'36','64',5,1,3,4,0,0);
+	 (1,1,2,1,10,1,1,2,0,'71','29',7,5,2,1,0,1),
+	 (2,2,1,2,9,1,3,0,0,'52','48',2,0,6,2,0,0),
+	 (1,3,4,3,8,2,4,4,3,'62','38',0,1,4,3,0,0),
+	 (2,4,3,4,7,2,5,0,1,'39','61',9,7,2,3,1,0),
+	 (1,5,6,5,6,3,2,3,1,'55','45',11,12,0,2,0,0),
+	 (2,6,5,6,5,3,3,1,0,'80','20',3,4,1,1,0,1),
+	 (1,7,8,7,4,4,1,1,1,'28','72',4,3,5,6,0,0),
+	 (2,8,7,8,3,4,5,2,2,'64','36',7,10,4,0,2,0),
+	 (1,9,10,9,2,5,4,2,3,'57','43',10,0,4,0,0,0),
+	 (2,10,9,10,1,5,2,0,0,'36','64',5,1,3,4,0,0);
 INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
-	 (5,11,14,3,9,2,3,1,2,'67','33',1,4,0,2,0,1),
-	 (9,12,13,6,5,4,4,1,1,'51','49',14,9,6,5,1,0);
+	 (3,1,2,2,9,1,3,1,2,'67','33',1,4,0,2,0,1),
+	 (4,2,1,3,5,1,1,1,1,'51','49',14,9,6,5,1,0),
+	 (3,3,4,4,1,2,5,2,1,'29','71',4,11,0,3,0,0),
+	 (4,4,3,5,2,2,2,5,0,'48','52',8,2,2,4,0,0),
+	 (3,5,6,6,3,3,4,3,0,'38','62',2,8,1,2,0,0),
+	 (4,6,5,7,4,3,3,0,1,'61','39',6,4,3,1,0,0),
+	 (3,7,8,8,5,4,1,2,2,'45','55',5,6,4,5,1,1),
+	 (4,8,7,9,6,4,3,0,4,'20','80',0,7,5,6,0,0),
+	 (3,9,10,10,7,5,2,1,3,'72','28',7,1,5,2,0,0),
+	 (4,10,9,1,8,5,4,6,3,'36','64',12,9,1,0,0,0);
+INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
+	 (5,1,2,5,9,1,5,0,0,'43','57',4,3,0,0,0,1),
+	 (6,2,1,6,1,1,3,1,1,'64','36',3,5,4,1,0,0),
+	 (5,3,4,7,2,2,5,1,2,'33','67',6,4,2,4,0,0),
+	 (6,4,3,8,3,2,1,0,5,'49','51',8,2,0,2,1,0),
+	 (5,5,6,9,10,3,4,2,0,'71','29',7,5,2,1,0,1),
+	 (6,6,5,10,9,3,2,0,0,'52','48',2,0,6,2,0,0),
+	 (5,7,8,1,8,4,5,4,3,'62','38',0,1,4,3,0,0),
+	 (6,8,7,2,7,4,4,0,1,'39','61',9,7,2,3,1,0),
+	 (5,9,10,3,6,5,3,3,1,'55','45',11,12,0,2,0,0),
+	 (6,10,9,4,5,5,1,1,0,'80','20',3,4,1,1,0,1);
+INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANTE,ID_ESTADIO,ID_LESION,ID_COMPETICION,ID_ARBITRO,GOLESLOCAL,GOLESVISITANTE,POSESIONLOCAL,POSESIONVISITANTE,TIROSLOCAL,TIROSVISITANTE,TARJETASAMARILLASLOCAL,TARJETASAMARILLASVISITANTE,TARJETASROJASLOCAL,TARJETASROJASVISITANTE) VALUES
+	 (7,1,2,7,4,1,5,1,1,'28','72',4,3,5,6,0,0),
+	 (8,2,1,8,3,1,2,2,2,'64','36',7,10,4,0,2,0),
+	 (7,3,4,9,2,2,4,2,3,'57','43',10,0,4,0,0,0),
+	 (8,4,3,10,1,2,1,0,0,'36','64',5,1,3,4,0,0),
+	 (7,5,6,1,9,3,4,1,2,'67','33',1,4,0,2,0,1),
+	 (8,6,5,2,5,3,1,1,1,'51','49',14,9,6,5,1,0),
+	 (7,7,8,3,1,4,3,2,1,'29','71',4,11,0,3,0,0),
+	 (8,8,7,4,2,4,2,5,0,'48','52',8,2,2,4,0,0),
+	 (7,9,10,5,3,5,3,3,0,'38','62',2,8,1,2,0,0),
+	 (8,10,9,6,4,5,5,0,1,'61','39',6,4,3,1,0,0);
 ```
 
-Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en iccube, para ello se debe ir a la pestaña de **Data Warehouse** y luego a **Data Warehouse Designer**. Una vez en el diseñador de esquemas se debe ir a la pestaña de **Data Sources** y luego a **New Data Source**. En la ventana que se abre se debe seleccionar la opción **SQL Server** y luego dar click en **Next**. En la siguiente ventana se debe ingresar la dirección del servidor de la base de datos, en este caso es **localhost**, el nombre de la base de datos es **lucas.lara** y el usuario y contraseña son **lucas.lara**. Una vez ingresados los datos se debe dar click en **Test Connection** para verificar que la conexión se haya realizado correctamente, si es así se debe dar click en **Finish**.
+Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables.
 
 ***
 ### **Tarea 1.3 (0,4 ptos)**
