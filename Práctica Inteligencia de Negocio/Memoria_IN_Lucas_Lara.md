@@ -224,7 +224,7 @@ INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANT
 	 (8,10,9,10,4,5,5,0,1,'61','39',6,4,3,1,0,0);
 ```
 
-Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables. Posteriormente se crean las relaciones entre las DataTables, las dimensiones y las medidas. Finalmente se crea el cubo y se cargan los datos en él. El esquema se puede consultar en el archivo ***esquema.icc-schema*** adjunto.
+Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables. Posteriormente se crean las relaciones entre las DataTables, las dimensiones y las measures. Finalmente se crea el cubo y se cargan los datos en él. El esquema se puede consultar en el archivo ***IN_Lucas.icc-schema*** adjunto.
 
 ***
 ### **Tarea 1.3 (0,4 ptos)**
@@ -237,7 +237,7 @@ Una vez cargados los datos en la base de datos se procede a cargar el esquema ge
 
 He de aclarar antes de la resolución de los ejercicios que algunos de los resultados de ejecutar las consultas no reflejan datos realistas ya que para ello se debería de contar con un dataset que englobase el total de los partidos de todas las temporadas de todas las competiciones. No obstante las consultas son correctas y lógicas en cuanto a su resultado dados los datos disponibles, y si se ejecutasen con un dataset más completo se obtendrían resultados más realistas.
 
-**1ª Consulta SQL:**
+**1ª Consulta SQL**
 
 ```sql
 SELECT dim_competicion.competicion, dim_fecha.temporada, 
@@ -353,6 +353,14 @@ La expresión común "c" utiliza la tabla generada por "p" para calcular los gol
 La consulta final utiliza un JOIN con la tabla de dimensión "dim_equipo" para obtener el nombre del equipo correspondiente a cada ID de equipo y muestra las columnas de puntos, goles a favor, goles en contra, diferencia de goles y posición, ordenadas por la posición. El resultado se muestra en la siguiente imagen:
 
 <image src="capturas/ConsultaSQL3.JPG" alt="Consulta 3 SQL">
+
+***
+
+**1ª Consulta MDX**
+
+```mdx
+
+```
 
 ***
 ## **Ejercicio 2 (0,8 ptos):**
