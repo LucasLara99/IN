@@ -13,7 +13,7 @@ Las tareas específicas a realizar se detallan a continuación.*
 
 **Solución:**  
 
-<image src="capturas/DFM.png" alt="DFM">
+<image src="assets/DFM.png" alt="DFM">
 
 El **hecho** principal de este modelo de datos es **Partido**, que representa un evento deportivo, concretamente un encuentro de fútbol, en el que dos equipos compiten entre sí. Un Partido tiene los siguientes atributos:
 
@@ -71,7 +71,7 @@ En resumen, el uso de estas dimensiones y atributos permite analizar de forma de
 
 **Solución:**  
 
-<image src="capturas/ModeloLogico.png" alt="Modelo Logico">
+<image src="assets/ModeloLogico.png" alt="Modelo Logico">
 
 Para esta tarea se ha utilizado el **modelo en estrella**, el cual, tiene una tabla de hechos central que se conecta a una serie de tablas de dimensiones independientes. Esta estructura simplifica la escritura de consultas y las hace más rápidas y eficientes.
 
@@ -85,7 +85,7 @@ Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El sc
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
 
-<image src="capturas/Diagrama_Oracle.png" alt="Tablas Oracle">  
+<image src="assets/Diagrama_Oracle.png" alt="Tablas Oracle">  
 
 Una vez creadas las tablas, el siguiente paso es cargar datos en ellas. A continuación se muestran los scripts de inserción de datos en cada una de las tablas:
 
@@ -264,7 +264,7 @@ Por último, se ordena la información por competición y temporada.
 
 El resultado de la consulta es el siguiente:
 
-<image src="capturas/ConsultaSQL1.JPG" alt="Consulta 1 SQL">
+<image src="assets/ConsultaSQL1.JPG" alt="Consulta 1 SQL">
 
 ***
 
@@ -294,7 +294,7 @@ Luego, se usa una función condicional CASE dentro de la función de agregación
 
 Finalmente, se agrupa el resultado por el nombre del equipo y se ordena en orden descendente según el número de victorias locales, como se muestra en la siguiente imagen:
 
-<image src="capturas/ConsultaSQL2.JPG" alt="Consulta 2 SQL">
+<image src="assets/ConsultaSQL2.JPG" alt="Consulta 2 SQL">
 
 ***
 
@@ -352,7 +352,7 @@ La expresión común "c" utiliza la tabla generada por "p" para calcular los gol
 
 La consulta final utiliza un JOIN con la tabla de dimensión "dim_equipo" para obtener el nombre del equipo correspondiente a cada ID de equipo y muestra las columnas de puntos, goles a favor, goles en contra, diferencia de goles y posición, ordenadas por la posición. El resultado se muestra en la siguiente imagen:
 
-<image src="capturas/ConsultaSQL3.JPG" alt="Consulta 3 SQL">
+<image src="assets/ConsultaSQL3.JPG" alt="Consulta 3 SQL">
 
 ***
 
