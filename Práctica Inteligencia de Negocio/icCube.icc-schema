@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schemaFactory revisionNumber="32">
+    <schemaDefinition name="IN Lucas" group="IN" loadOnStartup="false">
+        <activateIncrementalLoad>false</activateIncrementalLoad>
+        <useUnknownMembersInFacts>true</useUnknownMembersInFacts>
+        <autoCleanUpTableColumns>false</autoCleanUpTableColumns>
+        <useFactPartitioning>false</useFactPartitioning>
+        <memberPropertyConsistencyCheck>ACTIVE</memberPropertyConsistencyCheck>
+        <jdbcDS driverType="ORACLE" serverName="10.8.48.29" portNumber="1521" dbName="docencia" dontAddQuotes="false" user="&quot;lucas.lara&quot;" password="?" name="Partidos" description="IN" includeSynonyms="false" disableReadOnlyMode="false">
+            <jdbcStatement fetchSize="1000" tableName="DIM_ESTADIO" rowLimit="-1" id="8e67f221-676e-454b-8116-0482214f00ae">
+                <column name="ID_ESTADIO" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ESTADIO" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="UBICACION" tableType="VARCHAR(200)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="NOMBRE" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <sqlStatement>SELECT * FROM DIM_ESTADIO</sqlStatement>
+            </jdbcStatement>
+            <jdbcStatement fetchSize="1000" tableName="DIM_ARBITRO" rowLimit="-1" id="eeb0621b-251f-4473-a182-e6c7a23ea98e">
+                <column name="ID_ARBITRO" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ARBITRO" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="NACIONALIDAD" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="NOMBRE" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <sqlStatement>SELECT * FROM DIM_ARBITRO</sqlStatement>
+            </jdbcStatement>
+            <jdbcStatement fetchSize="1000" tableName="DIM_COMPETICION" rowLimit="-1" id="87b7d974-0809-410e-9890-737cfd141e9c">
+                <column name="ID_COMPETICION" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="COMPETICION" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="PAIS" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="NOMBRE" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <sqlStatement>SELECT * FROM DIM_COMPETICION</sqlStatement>
+            </jdbcStatement>
+            <jdbcStatement fetchSize="1000" tableName="DIM_LESION" rowLimit="-1" id="cf1b02db-54f8-4a90-93d2-4d158bc2e0b8">
+                <column name="ID_LESION" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="LESION" tableType="VARCHAR(150)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="JUGADOR" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="TIEMPO_RECUPERACION" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <sqlStatement>SELECT * FROM DIM_LESION</sqlStatement>
+            </jdbcStatement>
+            <jdbcStatement fetchSize="1000" tableName="DIM_FECHA" rowLimit="-1" id="38fd1f2a-3ba6-4d19-a06d-0cb4caa28019">
+                <column name="ID_FECHA" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="FECHA" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="DIA" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="MES" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="TEMPORADA" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="AÑO" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <sqlStatement>SELECT * FROM DIM_FECHA</sqlStatement>
+            </jdbcStatement>
+            <jdbcStatement fetchSize="1000" tableName="DIM_EQUIPO" rowLimit="-1" id="784b99ae-a3c7-4db0-8a68-ab04ce9dacfe">
+                <column name="ID_EQUIPO" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="EQUIPO" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="NOMBRE" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="PAIS" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="ENTRENADOR" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <sqlStatement>SELECT * FROM DIM_EQUIPO</sqlStatement>
+            </jdbcStatement>
+            <jdbcStatement fetchSize="1000" tableName="FACT_PARTIDO" rowLimit="-1" id="565c4b83-c45d-475d-a59d-36268ef58f0a">
+                <column name="ID_FECHA" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ID_EQUIPOLOCAL" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ID_EQUIPOVISITANTE" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ID_ESTADIO" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ID_LESION" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ID_COMPETICION" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="ID_ARBITRO" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="GOLESLOCAL" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="GOLESVISITANTE" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="POSESIONLOCAL" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="POSESIONVISITANTE" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
+                <column name="TIROSLOCAL" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="TIROSVISITANTE" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="TARJETASAMARILLASLOCAL" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="TARJETASAMARILLASVISITANTE" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="TARJETASROJASLOCAL" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <column name="TARJETASROJASVISITANTE" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
+                <sqlStatement>SELECT * FROM FACT_PARTIDO</sqlStatement>
+            </jdbcStatement>
+        </jdbcDS>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="87b7d974-0809-410e-9890-737cfd141e9c" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="bb06dac6-3ddb-42dc-8288-bd7580d6e92a" name="COMPETICION">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="COMPETICION" isDefault="true" uuid="45e8fc7a-650b-4f7b-919f-95b1402c3b80">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="9f56f02a-6bf2-4730-9e78-f21682766e1c" name="COMPETICION" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_COMPETICION"/>
+                    <nameCol name="ID_COMPETICION"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="cf1b02db-54f8-4a90-93d2-4d158bc2e0b8" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="a2c9e32f-0125-4aff-ba92-c4a259c9cc63" name="LESION">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="LESION" isDefault="true" uuid="022587c2-ff31-41fb-82e0-b74117088e6d">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="504f6311-4bf6-43d3-a1c0-79922f3bb7fe" name="LESION" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_LESION"/>
+                    <nameCol name="ID_LESION"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="8e67f221-676e-454b-8116-0482214f00ae" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="baf7578d-1b44-449c-8618-e5521190a166" name="ESTADIO">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="ESTADIO" isDefault="true" uuid="d9f4a642-2b21-498c-bfe6-c88ad70b5902">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="995c0c92-bde5-435a-a0d3-24ea0c5cb928" name="ESTADIO" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_ESTADIO"/>
+                    <nameCol name="ID_ESTADIO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="38fd1f2a-3ba6-4d19-a06d-0cb4caa28019" isTimeDimension="true" isDefaultTimeDimension="false" isIndexingByRange="false" id="c2d1fc9c-1fc6-41ed-b534-e3c3d4c8317a" name="FECHA">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="FECHA" isDefault="true" uuid="23a13cae-1e86-4522-ae4f-fdc1853ec819">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="b1620310-4c64-4089-bfdb-f6f8b9603218" name="FECHA" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_FECHA"/>
+                    <nameCol name="ID_FECHA"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="784b99ae-a3c7-4db0-8a68-ab04ce9dacfe" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="35b6cc74-c93c-4323-bee8-9c998365d757" name="EQUIPO_LOCAL">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="EQUIPO_LOCAL" isDefault="true" uuid="b9716946-0c48-4cbf-977d-ea9a5eb03582">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="f87dfbd4-91dd-4ddc-b5d7-04293611dcf1" name="EQUIPO_LOCAL" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_EQUIPO"/>
+                    <nameCol name="ID_EQUIPO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="784b99ae-a3c7-4db0-8a68-ab04ce9dacfe" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="ab22b3c9-3ce8-498c-90af-5d1754f03b83" name="EQUIPO_VISITANTE">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="EQUIPO_VISITANTE" isDefault="true" uuid="e2c19a98-ac8b-4918-b6c2-41f0d2582842">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="2a6733ed-72cb-4dd5-9741-7ff2bb0db8d2" name="EQUIPO_VISITANTE" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_EQUIPO"/>
+                    <nameCol name="ID_EQUIPO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="eeb0621b-251f-4473-a182-e6c7a23ea98e" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="998eb4f5-93fa-4953-9e58-6740702e6aac" name="ARBITRO">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="ARBITRO" isDefault="true" uuid="741774ca-49de-46c7-b6e9-307f315d7205">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="86c3cd8e-b40e-46b1-9c8d-b568b5945f62" name="ARBITRO" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_ARBITRO"/>
+                    <nameCol name="ID_ARBITRO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <cube id="0f2dc88e-3c8e-48df-882c-d2c71b06e1fe" name="PARTIDOS">
+            <defaultFacts uuid="77b4b519-6bf4-45ee-ae6e-a09729a65147" measureGroupName="Atributes" partitioningType="NONE" newGeneration="true" dataTableId="565c4b83-c45d-475d-a59d-36268ef58f0a" aggregateDataSourceFacts="false" unresolvedRowsBehavior="ERROR">
+                <rowFactAggregationType>ADD_ROW</rowFactAggregationType>
+                <measure uuid="d51aeff3-2da8-44db-9753-53e6eb16c1f3" name="Id Fecha" aggregationType="SUM">
+                    <dataColumn name="ID_FECHA"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="7623b3c5-c6be-48fd-9e4a-8e866484129a" name="Id Equipolocal" aggregationType="SUM">
+                    <dataColumn name="ID_EQUIPOLOCAL"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="807c127c-1e49-49dd-9612-660daf6c1460" name="Id Equipovisitante" aggregationType="SUM">
+                    <dataColumn name="ID_EQUIPOVISITANTE"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="b1fda4aa-4fbe-4cd4-afd5-a032669cf484" name="Id Estadio" aggregationType="SUM">
+                    <dataColumn name="ID_ESTADIO"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="f81dc3f6-9527-447e-a9a9-6b141e0cf3dd" name="Id Lesion" aggregationType="SUM">
+                    <dataColumn name="ID_LESION"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="ec344cbb-e959-4a0f-82d1-ddf4e12ee6c4" name="Id Competicion" aggregationType="SUM">
+                    <dataColumn name="ID_COMPETICION"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="4501f78d-a675-4747-8700-2f5894b5b9cb" name="Id Arbitro" aggregationType="SUM">
+                    <dataColumn name="ID_ARBITRO"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="6e402e24-6b45-4525-8762-a560cea1fabf" name="Goleslocal" aggregationType="SUM">
+                    <dataColumn name="GOLESLOCAL"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="4f83e57f-5b95-4da5-aaa1-d463d8a3c1d3" name="Golesvisitante" aggregationType="SUM">
+                    <dataColumn name="GOLESVISITANTE"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="9b5bece4-e718-4670-a485-c0e42203edf0" name="Tiroslocal" aggregationType="SUM">
+                    <dataColumn name="TIROSLOCAL"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="f6687d03-d4d5-483e-9113-dc0a06e8d80a" name="Tirosvisitante" aggregationType="SUM">
+                    <dataColumn name="TIROSVISITANTE"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="8490a98e-4eec-4ad6-be9e-a1f6d1ac6969" name="Tarjetasamarillaslocal" aggregationType="SUM">
+                    <dataColumn name="TARJETASAMARILLASLOCAL"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="f1ecf076-0e0e-47b3-953b-fd6c2b609e15" name="Tarjetasamarillasvisitante" aggregationType="SUM">
+                    <dataColumn name="TARJETASAMARILLASVISITANTE"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="de4120f8-8cfd-4252-b449-771038e8f943" name="Tarjetasrojaslocal" aggregationType="SUM">
+                    <dataColumn name="TARJETASROJASLOCAL"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="a139e369-76c4-4d04-b5fe-aac54e50ab2f" name="Tarjetasrojasvisitante" aggregationType="SUM">
+                    <dataColumn name="TARJETASROJASVISITANTE"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="bb58a0d9-b4b0-4afc-868b-a84015387ff3" name="Posesionlocal" aggregationType="SUM">
+                    <dataColumn name="POSESIONLOCAL"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <measure uuid="64b6f9e6-a554-47f6-b747-1b9439a9c912" name="Posesionvisitante" aggregationType="SUM">
+                    <dataColumn name="POSESIONVISITANTE"/>
+                    <cellProperties>FORMAT_STRING="Standard"</cellProperties>
+                </measure>
+                <links dimensionId="bb06dac6-3ddb-42dc-8288-bd7580d6e92a">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_COMPETICION"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="35b6cc74-c93c-4323-bee8-9c998365d757">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_EQUIPOLOCAL"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="ab22b3c9-3ce8-498c-90af-5d1754f03b83">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_EQUIPOVISITANTE"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="baf7578d-1b44-449c-8618-e5521190a166">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_ESTADIO"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="c2d1fc9c-1fc6-41ed-b534-e3c3d4c8317a">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_FECHA"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="a2c9e32f-0125-4aff-ba92-c4a259c9cc63">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_LESION"/>
+                    </viewLinks>
+                </links>
+                <links dimensionId="998eb4f5-93fa-4953-9e58-6740702e6aac">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_ARBITRO"/>
+                    </viewLinks>
+                </links>
+            </defaultFacts>
+        </cube>
+        <localization enabled="false"/>
+        <colors enabled="false"/>
+        <script>
+            <content>-- 
+-- Drop all calc. members, sets and functions declared at schema/cube levels. 
+-- 
+
+DROP *
+
+
+-- 
+-- Functions 
+-- 
+
+-- 
+-- Sets. 
+-- 
+
+-- 
+-- Calculated Measures/Members. 
+-- 
+
+</content>
+        </script>
+    </schemaDefinition>
+</schemaFactory>
