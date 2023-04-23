@@ -480,6 +480,8 @@ En segundo lugar, he realizado un estudio comparativo de las categorías de cont
 
 <image src="assets/Dashboard4.png" alt="Dashboard Netflix">
 
+Este estudio puede resultar muy interesante para los usuarios, ya que permite conocer las categorías de contenido más populares en cada plataforma, y así poder decidir cuál es la que mejor se adapta a sus gustos. Por ejemplo, si un usuario está interesado en ver películas de acción, puede ver que Disney es la plataforma que mejor encaja, ya que cuenta con un mayor número de películas de este género. En cambio, si lo que busca es ver dramas, Amazon Prime es la plataforma que mejor se adapta a sus gustos.
+
 ***
 ### **Tarea 2.2 (0,3 ptos)** 
 
@@ -488,3 +490,15 @@ En segundo lugar, he realizado un estudio comparativo de las categorías de cont
 *Se valorará que se utilice una herramienta diferente de Tableau para esta tarea. La herramienta recomendada por su simplicidad de uso es Microsoft PowerBI, pero puede utilizarse cualquier herramienta de otros fabricantes (Microstrategy, Klik, SAP, SAS, Sisense...)*
 
 **Solución:**  
+
+Para esta tarea se ha hecho uso de la herramienta Microsoft Power BI (se adjunta el archivo ***Lucas.pbix***). La plataforma que se va a estudiar es Netflix con su correspondiente dataset *netflix_titles.csv*.
+
+El primer estudio ha sido comparar el número de temporadas de las series de Netflix. Para ello, se ha utilizado un gráfico de sectores y un filtro para el atributo *duration* del dataset. En el gráfico que se muestra a continuación se puede ver que la mayoría de las series de Netflix tienen 1 temporada, seguido de 2 y 3:
+
+<image src="assets/PowerBI.JPG" alt="GraficoPowerBI">
+
+El segundo estudio ha consistido en analizar la nacionalidad de los actores y actrices de las películas y series de Netflix. Para ello, se ha utilizado un mapa en árbol, donde se puede ver que la mayoría de los actores y actrices son estadounidenses, seguido de los indios y los británicos, como se muestra en la siguiente imagen:
+
+<image src="assets/PowerBI2.JPG" alt="GraficoPowerBI">
+
+Con esto se da por finalizada la práctica de Inteligencia de Negocio.
