@@ -222,7 +222,7 @@ INSERT INTO "lucas.lara".FACT_PARTIDO (ID_FECHA,ID_EQUIPOLOCAL,ID_EQUIPOVISITANT
 	 (8,10,9,10,4,5,5,0,1,'61','39',6,4,3,1,0,0);
 ```
 
-Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables. Posteriormente se crean las relaciones entre las DataTables, las dimensiones y las measures. Finalmente se crea el cubo y se cargan los datos en él. El esquema se puede consultar en el archivo ***IN_Lucas.icc-schema*** adjunto.
+Una vez cargados los datos en la base de datos se procede a cargar el esquema generado en icCube. En primer lugar se configura el datasource con nuestro servidor oracle. En segundo lugar se crean las DataTables. Posteriormente se crean las relaciones entre las DataTables, las dimensiones y las measures. Finalmente se crea el cubo y se cargan los datos en él. El esquema se puede consultar en el archivo ***icCube.icc-schema*** adjunto.
 
 ***
 ### **Tarea 1.3 (0,4 ptos)**
@@ -357,8 +357,91 @@ La consulta final utiliza un JOIN con la tabla de dimensión "dim_equipo" para o
 **1ª Consulta MDX**
 
 ```mdx
-
+SELECT
+{[Measures].[Goleslocal], [Measures].[Golesvisitante], [Measures].[Posesionlocal], [Measures].[Posesionvisitante], [Measures].[Tiroslocal], [Measures].[Tirosvisitante]} ON COLUMNS,
+{[Fecha].[Temporada].[Temporada].Members} ON ROWS
+FROM [PARTIDOS]
+WHERE ([Equipo_Local].[Pais].&[España], [Equipo_Visitante].[Entrenador].&[Xavi Hernández])
 ```
+
+Esta consulta MDX solicita datos específicos del cubo PARTIDOS. Selecciona las medidas de interés ([Measures].[Goleslocal], [Measures].[Golesvisitante], [Measures].[Posesionlocal], [Measures].[Posesionvisitante], [Measures].[Tiroslocal], [Measures].[Tirosvisitante]) en las columnas y los valores de la jerarquía Temporada en las filas.
+
+Además, se aplica un filtro en la cláusula WHERE que limita los datos de interés a los partidos en los que el equipo local es de España y el entrenador del equipo visitante es Xavi Hernández.
+
+En resumen, la consulta devuelve una tabla con los valores de las medidas de interés para cada temporada, pero solo para los partidos que cumplen el filtro especificado. El resultado se muestra en la siguiente imagen:
+
+<image src="assets/ConsultaMDX1.JPG" alt="Consulta 1 MDX">
+
+***
+
+**2ª Consulta MDX**
+
+```mdx
+SELECT
+{[Measures].[Tarjetasamarillaslocal], [Measures].[Tarjetasamarillasvisitante]} ON COLUMNS,
+Order(
+    [Equipo_Local].[Nombre].[Nombre].Members,
+    ([Measures].[Tarjetasamarillaslocal], [Fecha].[Temporada].CurrentMember),
+    BDESC
+)
+ON ROWS
+FROM [PARTIDOS]
+WHERE [Fecha].[Temporada].&[2022/2023]
+```	
+
+Esta consulta MDX está seleccionando las medidas de Tarjetas Amarillas para los equipos locales y visitantes en las columnas. En las filas, se está ordenando una lista de los equipos locales por la cantidad de tarjetas amarillas que recibieron en la temporada 2022/2023.
+
+El comando Order() se utiliza para ordenar los elementos de una lista. En este caso, la lista son los equipos locales, que están en la jerarquía Nombre de la dimensión Equipo_Local. Se especifica que se ordene por la medida Tarjetasamarillaslocal y se utiliza el modificador BDESC (de "backward descending") para indicar que se ordene en orden descendente.
+
+El miembro de la dimensión Fecha que se está utilizando en el filtro es la temporada 2022/2023, que se selecciona con la sintaxis [Fecha].[Temporada].&[2022/2023].
+
+En resumen, esta consulta muestra la cantidad de tarjetas amarillas que recibieron los equipos locales y visitantes en la temporada 2022/2023, y ordena los equipos locales por la cantidad de tarjetas amarillas que recibieron. El resultado se muestra en la siguiente imagen:  
+
+<image src="assets/ConsultaMDX2.JPG" alt="Consulta 2 MDX">
+
+***
+
+**3ª Consulta MDX**
+
+```mdx
+WITH 
+SET [Top5Equipos] AS 
+    TopCount(
+        [Equipo_Local].[Nombre].[Nombre].Members, 
+        5, 
+        ([Measures].[Posesionlocal], [Fecha].[Temporada].&[2022/2023])
+    )
+MEMBER [Equipo_Local].[Nombre].[Otros] AS
+    Aggregate(
+        Except(
+            [Equipo_Local].[Nombre].[Nombre].Members, 
+            [Top5Equipos]
+        )
+    )
+SELECT 
+    {
+        [Measures].[Posesionlocal]
+    } ON COLUMNS,
+    Order(
+        {[Top5Equipos]}, 
+        [Measures].[Posesionlocal], 
+        BDESC
+    ) ON ROWS
+FROM [PARTIDOS]
+WHERE [Fecha].[Temporada].&[2022/2023]
+```	
+
+Esta consulta MDX utiliza conjuntos y miembros calculados para obtener el top 5 de equipos con la mayor posesión local en la temporada 2022/2023.
+
+Primero, se crea el conjunto calculado llamado [Top5Equipos], que contiene los 5 equipos con la posesión local más alta en la temporada actual. Se utiliza la función TopCount() para seleccionar los 5 equipos y se aplica un filtro para obtener solo los valores de la temporada actual.
+
+Luego, se crea un miembro calculado llamado [Equipo_Local].[Nombre].[Otros], que representa la suma de la posesión local de todos los equipos que no están en el conjunto [Top5Equipos].
+
+Finalmente, se utiliza la función Order() para ordenar los miembros del conjunto [Top5Equipos] por su posesión local, en orden descendente, y se selecciona la medida [Measures].[Posesionlocal] para mostrar en las columnas. La cláusula WHERE se utiliza para filtrar los datos solo para la temporada 2022/2023.
+
+Aunque el resultado parezca sencillo visualmente, se trata de una consulta compleja y de bastante interés estadístico. El resultado se muestra en la siguiente imagen:  
+
+<image src="assets/ConsultaMDX3.JPG" alt="Consulta 3 MDX">
 
 ***
 ## **Ejercicio 2 (0,8 ptos):**
