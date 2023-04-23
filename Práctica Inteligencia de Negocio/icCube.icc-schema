@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<schemaFactory revisionNumber="32">
+<schemaFactory revisionNumber="90">
     <schemaDefinition name="IN Lucas" group="IN" loadOnStartup="false">
         <activateIncrementalLoad>false</activateIncrementalLoad>
         <useUnknownMembersInFacts>true</useUnknownMembersInFacts>
         <autoCleanUpTableColumns>false</autoCleanUpTableColumns>
         <useFactPartitioning>false</useFactPartitioning>
         <memberPropertyConsistencyCheck>ACTIVE</memberPropertyConsistencyCheck>
-        <jdbcDS driverType="ORACLE" serverName="10.8.48.29" portNumber="1521" dbName="docencia" dontAddQuotes="false" user="&quot;lucas.lara&quot;" password="?" name="Partidos" description="IN" includeSynonyms="false" disableReadOnlyMode="false">
+        <jdbcDS driverType="ORACLE" serverName="10.8.48.29" portNumber="1521" dbName="docencia" dontAddQuotes="false" user="&quot;lucas.lara&quot;" password="--" name="Partidos" description="IN" includeSynonyms="false" disableReadOnlyMode="false">
             <jdbcStatement fetchSize="1000" tableName="DIM_ESTADIO" rowLimit="-1" id="8e67f221-676e-454b-8116-0482214f00ae">
                 <column name="ID_ESTADIO" tableType="NUMERIC(38,0)" type="LONG" selected="true" primaryKey="false"/>
                 <column name="ESTADIO" tableType="VARCHAR(100)" type="STRING" selected="true" primaryKey="false"/>
@@ -76,19 +76,42 @@
         <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="87b7d974-0809-410e-9890-737cfd141e9c" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="bb06dac6-3ddb-42dc-8288-bd7580d6e92a" name="COMPETICION">
             <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="COMPETICION" isDefault="true" uuid="45e8fc7a-650b-4f7b-919f-95b1402c3b80">
                 <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
-                <level uuid="9f56f02a-6bf2-4730-9e78-f21682766e1c" name="COMPETICION" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                <level uuid="a3ab83a2-3429-4ced-bdb1-68fb537d35f1" name="Pais" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="PAIS"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="124539f8-06d7-4c37-8470-571615571b52" name="Competicion" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <property name="Nombre">
+                        <column name="NOMBRE"/>
+                    </property>
                     <column name="ID_COMPETICION"/>
-                    <nameCol name="ID_COMPETICION"/>
+                    <nameCol name="COMPETICION"/>
                     <orderType>NONE</orderType>
                 </level>
             </multiLevelHierarchy>
         </multiLevelDimension>
         <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="cf1b02db-54f8-4a90-93d2-4d158bc2e0b8" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="a2c9e32f-0125-4aff-ba92-c4a259c9cc63" name="LESION">
-            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="LESION" isDefault="true" uuid="022587c2-ff31-41fb-82e0-b74117088e6d">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="JUGADOR" isDefault="true" uuid="022587c2-ff31-41fb-82e0-b74117088e6d">
                 <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
-                <level uuid="504f6311-4bf6-43d3-a1c0-79922f3bb7fe" name="LESION" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                <level uuid="754796a2-99a3-4cee-8857-51e9ee2916b2" name="Jugador" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="JUGADOR"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="ec4f67e6-8672-4596-b187-bf5cff26f2a8" name="Lesion" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
                     <column name="ID_LESION"/>
-                    <nameCol name="ID_LESION"/>
+                    <nameCol name="LESION"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="RECUPERACION" isDefault="false" uuid="3e397b2e-00bc-4bae-ac40-e717dc345081">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="2cb67b2c-fde8-4feb-ab3f-d74cb0708ff1" name="Recuperacion" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="TIEMPO_RECUPERACION"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="0565eb1b-625b-40d9-8186-2b14c0ebfca6" name="Lesion" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_LESION"/>
+                    <nameCol name="LESION"/>
                     <orderType>NONE</orderType>
                 </level>
             </multiLevelHierarchy>
@@ -96,9 +119,16 @@
         <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="8e67f221-676e-454b-8116-0482214f00ae" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="baf7578d-1b44-449c-8618-e5521190a166" name="ESTADIO">
             <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="ESTADIO" isDefault="true" uuid="d9f4a642-2b21-498c-bfe6-c88ad70b5902">
                 <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
-                <level uuid="995c0c92-bde5-435a-a0d3-24ea0c5cb928" name="ESTADIO" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                <level uuid="7d5bc5b4-e114-4bd0-957f-efef2e9c8a15" name="Ubicacion" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="UBICACION"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="ffaa098b-00bf-446e-8b99-ddcba3d976cc" name="Estadio" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <property name="Nombre">
+                        <column name="NOMBRE"/>
+                    </property>
                     <column name="ID_ESTADIO"/>
-                    <nameCol name="ID_ESTADIO"/>
+                    <nameCol name="ESTADIO"/>
                     <orderType>NONE</orderType>
                 </level>
             </multiLevelHierarchy>
@@ -106,29 +136,69 @@
         <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="38fd1f2a-3ba6-4d19-a06d-0cb4caa28019" isTimeDimension="true" isDefaultTimeDimension="false" isIndexingByRange="false" id="c2d1fc9c-1fc6-41ed-b534-e3c3d4c8317a" name="FECHA">
             <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="FECHA" isDefault="true" uuid="23a13cae-1e86-4522-ae4f-fdc1853ec819">
                 <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
-                <level uuid="b1620310-4c64-4089-bfdb-f6f8b9603218" name="FECHA" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                <level uuid="233b393b-00f9-404e-97eb-0c06b3b8bdd4" name="Anio" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="AÑO"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="8bcdec7b-2347-45d5-9ebc-8f6e1c723be0" name="Mes" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="MES"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="4ae003f4-8bcc-4fb1-a343-842c0f596057" name="Fecha" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
                     <column name="ID_FECHA"/>
-                    <nameCol name="ID_FECHA"/>
+                    <nameCol name="FECHA"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="DIA" isDefault="false" uuid="afede2bb-4d8a-481f-ad9a-a43844dfd13c">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="bc5a1295-1177-4008-a256-4acd4702064a" name="Dia" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="DIA"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="TEMPORADA" isDefault="false" uuid="95de1b65-5d35-4b7a-944f-c8e2253b1dc3">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="d855de06-a877-4aef-b0f0-5bbb7b46e2b3" name="Temporada" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="TEMPORADA"/>
                     <orderType>NONE</orderType>
                 </level>
             </multiLevelHierarchy>
         </multiLevelDimension>
         <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="784b99ae-a3c7-4db0-8a68-ab04ce9dacfe" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="35b6cc74-c93c-4323-bee8-9c998365d757" name="EQUIPO_LOCAL">
-            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="EQUIPO_LOCAL" isDefault="true" uuid="b9716946-0c48-4cbf-977d-ea9a5eb03582">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="NOMBRE" isDefault="true" uuid="a633fe3e-9d41-42a9-81ab-de9efebff04a">
                 <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
-                <level uuid="f87dfbd4-91dd-4ddc-b5d7-04293611dcf1" name="EQUIPO_LOCAL" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                <level uuid="07868474-b295-45c3-98b6-9934d55c8a8b" name="Nombre" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="NOMBRE"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="2fc53ed5-e775-4499-8535-9dcce4b54710" name="Equipo" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
                     <column name="ID_EQUIPO"/>
-                    <nameCol name="ID_EQUIPO"/>
+                    <nameCol name="EQUIPO"/>
                     <orderType>NONE</orderType>
                 </level>
             </multiLevelHierarchy>
-        </multiLevelDimension>
-        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="784b99ae-a3c7-4db0-8a68-ab04ce9dacfe" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="ab22b3c9-3ce8-498c-90af-5d1754f03b83" name="EQUIPO_VISITANTE">
-            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="EQUIPO_VISITANTE" isDefault="true" uuid="e2c19a98-ac8b-4918-b6c2-41f0d2582842">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="PAIS" isDefault="false" uuid="4ebcc755-a5a1-4c70-a6c7-fab5213e9b56">
                 <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
-                <level uuid="2a6733ed-72cb-4dd5-9741-7ff2bb0db8d2" name="EQUIPO_VISITANTE" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                <level uuid="cf31c5df-6a1f-4cb7-a5da-f05011222afa" name="Pais" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="PAIS"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="230416fa-c448-435a-830c-529db5d3a787" name="Equipo" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
                     <column name="ID_EQUIPO"/>
-                    <nameCol name="ID_EQUIPO"/>
+                    <nameCol name="EQUIPO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="ENTRENADOR" isDefault="false" uuid="819ba2f2-82ed-4e94-82b3-9c2c412a8f28">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="366d886e-f925-4c12-9860-962b076ffcde" name="Entrenador" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="ENTRENADOR"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="827b3224-a489-40c8-978f-52ee93b583b1" name="Equipo" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_EQUIPO"/>
+                    <nameCol name="EQUIPO"/>
                     <orderType>NONE</orderType>
                 </level>
             </multiLevelHierarchy>
@@ -136,9 +206,54 @@
         <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="eeb0621b-251f-4473-a182-e6c7a23ea98e" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="998eb4f5-93fa-4953-9e58-6740702e6aac" name="ARBITRO">
             <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="ARBITRO" isDefault="true" uuid="741774ca-49de-46c7-b6e9-307f315d7205">
                 <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
-                <level uuid="86c3cd8e-b40e-46b1-9c8d-b568b5945f62" name="ARBITRO" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                <level uuid="37c39caa-818a-4c46-a5a1-2d64731e5a70" name="Nacionalidad" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="NACIONALIDAD"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="953fcddc-1780-4201-a31d-1cf9eb536f2f" name="Arbitro" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <property name="Nombre">
+                        <column name="NOMBRE"/>
+                    </property>
                     <column name="ID_ARBITRO"/>
-                    <nameCol name="ID_ARBITRO"/>
+                    <nameCol name="ARBITRO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+        </multiLevelDimension>
+        <multiLevelDimension includeUsedColumn="false" dynHierAllMember="All $HierarchyName" dataTableId="784b99ae-a3c7-4db0-8a68-ab04ce9dacfe" isTimeDimension="false" isDefaultTimeDimension="false" isIndexingByRange="false" id="634863f1-295a-42eb-8fd5-2eba7da4ed58" name="EQUIPO_VISITANTE">
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="NOMBRE" isDefault="true" uuid="6fc93e92-890f-401b-b74b-5c4dd36704d6">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="93e2c289-a09c-457c-a6ff-48d50a68c053" name="Nombre" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="NOMBRE"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="1566acc5-7861-43f8-92a6-b962b96ce1b5" name="Equipo" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_EQUIPO"/>
+                    <nameCol name="EQUIPO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="PAIS" isDefault="false" uuid="f5689aee-0f98-4df6-bfc1-c32bc49906f8">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="92430714-c24a-40b2-884f-aa981b3ce260" name="Pais" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="PAIS"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="6de57482-e4c7-4d20-834a-a27abd6bb1a3" name="Equipo" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_EQUIPO"/>
+                    <nameCol name="EQUIPO"/>
+                    <orderType>NONE</orderType>
+                </level>
+            </multiLevelHierarchy>
+            <multiLevelHierarchy hasAllLevel="true" allLevelName="All-Level" allMemberName="All" name="ENTRENADOR" isDefault="false" uuid="ae5299c7-7d0e-49fb-a1f0-41510eb2fcbe">
+                <factAggregationType>MEMBER_AND_ANCESTORS</factAggregationType>
+                <level uuid="0938f122-79e6-4654-8d6c-67d54eecf039" name="Entrenador" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <nameCol name="ENTRENADOR"/>
+                    <orderType>NONE</orderType>
+                </level>
+                <level uuid="77fde365-43f7-4705-8eb6-af35b2c76a1c" name="Equipo" ignoreNameCollision="false" nameUnique="true" nameUniqueInParent="false" keyUnique="true">
+                    <column name="ID_EQUIPO"/>
+                    <nameCol name="EQUIPO"/>
                     <orderType>NONE</orderType>
                 </level>
             </multiLevelHierarchy>
@@ -214,6 +329,11 @@
                     <dataColumn name="POSESIONVISITANTE"/>
                     <cellProperties>FORMAT_STRING="Standard"</cellProperties>
                 </measure>
+                <links dimensionId="998eb4f5-93fa-4953-9e58-6740702e6aac">
+                    <viewLinks type="LAST_LEVEL">
+                        <toColumns name="ID_ARBITRO"/>
+                    </viewLinks>
+                </links>
                 <links dimensionId="bb06dac6-3ddb-42dc-8288-bd7580d6e92a">
                     <viewLinks type="LAST_LEVEL">
                         <toColumns name="ID_COMPETICION"/>
@@ -224,7 +344,7 @@
                         <toColumns name="ID_EQUIPOLOCAL"/>
                     </viewLinks>
                 </links>
-                <links dimensionId="ab22b3c9-3ce8-498c-90af-5d1754f03b83">
+                <links dimensionId="634863f1-295a-42eb-8fd5-2eba7da4ed58">
                     <viewLinks type="LAST_LEVEL">
                         <toColumns name="ID_EQUIPOVISITANTE"/>
                     </viewLinks>
@@ -242,11 +362,6 @@
                 <links dimensionId="a2c9e32f-0125-4aff-ba92-c4a259c9cc63">
                     <viewLinks type="LAST_LEVEL">
                         <toColumns name="ID_LESION"/>
-                    </viewLinks>
-                </links>
-                <links dimensionId="998eb4f5-93fa-4953-9e58-6740702e6aac">
-                    <viewLinks type="LAST_LEVEL">
-                        <toColumns name="ID_ARBITRO"/>
                     </viewLinks>
                 </links>
             </defaultFacts>
