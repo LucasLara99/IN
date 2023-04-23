@@ -81,7 +81,7 @@ Además, como no se espera una gran cantidad de cambios en los atributos de las 
 
 También se decidió utilizar claves primarias subrogadas para cada tabla de dimensión, ya que esto simplifica la gestión de las relaciones entre las tablas y evita posibles problemas de rendimiento al utilizar claves naturales.
 
-Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El script de creación de las tablas se puede consultar en el archivo de la entrega ***CreacionTablas.sql***.
+Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El script de creación de las tablas se puede consultar en el archivo de la entrega ***OracleTablesCreation.sql***.
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
 
@@ -457,6 +457,28 @@ Aunque el resultado parezca sencillo visualmente, se trata de una consulta compl
 dashboards.*
 
 **Solución:**  
+
+En este ejercicio voy a realizar un análisis comparativo de las ofertas de contenido de las tres principales plataformas de streaming de películas y series: Netflix, Amazon Prime y Disney. Para ello, utilizaremos los datasets de cada una de estas plataformas, disponibles en el campus, que incluyen información sobre el reparto, el país de producción, la fecha de lanzamiento, la duración, la categoría y otros detalles relevantes de cada película o serie. Todo ello se encuentra en el archivo ***Libro1.twbx***
+
+En primer lugar, he realizado un estudio comparativo mediante tres gráficos de barras. Cada uno de estos gráficos muestra el número de series y películas en relación con el número total de elementos de cada plataforma, calculado con un atributo generado por mi utilizando la sentencia *COUNT(Title)*, lo que nos permite comparar la proporción de contenido de cada tipo en cada una de las plataformas. El dashboard resultante se muestra en la siguiente imagen:
+
+<image src="assets/Dashboard 1.png" alt="Dashboard 1">
+
+Como se puede ver en el dashboard, la plataforma con mayor proporción de películas respecto al total de contenido es Amazon Prime, que con aproximadamente 8000 películas cuenta con 2000 series, seguida de Disney y, por último, Netflix. En cuanto a las series, la plataforma con mayor proporción es Netflix, con casi la mitad de series que películas, seguida de Disney y finalmente Amazon Prime.
+
+***
+
+En segundo lugar, he realizado un estudio comparativo de las categorías de contenido de cada una de las plataformas. Para ello, he utilizado un gráfico de burbujas, donde el tamaño de cada burbuja representa el número de elementos de cada categoría. Personalmente, me parece un gráfico muy útil para este tipo de análisis, ya que permite visualizar de forma rápida y sencilla la proporción de cada categoría en cada plataforma. Este estudio esta formado por tres gráficos de burbujas, uno para cada plataforma, como se muestra a continuación:
+
+<image src="assets/Dashboard2.png" alt="Dashboard Amazon">  
+
+***
+
+<image src="assets/Dashboard3.png" alt="Dashboard Disney">
+
+***
+
+<image src="assets/Dashboard4.png" alt="Dashboard Netflix">
 
 ***
 ### **Tarea 2.2 (0,3 ptos)** 
