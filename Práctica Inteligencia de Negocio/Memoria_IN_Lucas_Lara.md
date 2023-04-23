@@ -109,7 +109,6 @@ INSERT INTO "lucas.lara".DIM_COMPETICION (ID_COMPETICION,COMPETICION,PAIS,NOMBRE
 	 (3,'Premier League - Inglaterra','Inglaterra','Premier League'),
 	 (4,'Bundesliga - Alemania','Alemania','Bundesliga'),
 	 (5,'Ligue One - Francia','Francia','Ligue One');
-
 ```  
 
 **DIM_LESION :**
@@ -135,11 +134,11 @@ INSERT INTO "lucas.lara".DIM_ESTADIO (ID_ESTADIO,ESTADIO,UBICACION,NOMBRE) VALUE
 	 (1,'Camp Nou - España','España','Camp Nou'),
 	 (2,'Santiago Bernabeu - España','España','Santiago Bernabeu'),
 	 (3,'Parc des Princes - Francia','Francia','Parc des Princes'),
-	 (4,'Estade Velodrome - France','Francia','Estade Velodrome'),
+	 (4,'Estade Velodrome - Francia','Francia','Estade Velodrome'),
 	 (5,'Emirates Stadium - Inglaterra','Inglaterra','Emirates Stadium'),
 	 (6,'Old Trafford - Inglaterra','Inglaterra','Old Trafford'),
 	 (7,'San Siro - Italia','Italia','San Siro'),
-	 (8,'San Siro - Italia','Italia','San Siro'),
+	 (8,'Giuseppe Meazza - Italia','Italia','Giuseppe Meazza'),
 	 (9,'Allianz Arena - Alemania','Alemania','Allianz Arena'),
 	 (10,'Signal Iduna Park - Alemania','Alemania','Signal Iduna Park');
 ```
@@ -148,15 +147,14 @@ Para la tabla **DIM_FECHA** se han añadido 8 fechas, 2 jornadas por 4 de las ú
 
 ```sql
 INSERT INTO "lucas.lara".DIM_FECHA (ID_FECHA,FECHA,DIA,MES,TEMPORADA,AÑO) VALUES
-	 (1,'25/01/2020','25','1','2019/2020',2020),
-	 (2,'14/03/2020','14','3','2019/2020',2020),
-	 (3,'27/02/2021','27','2','2020/2021',2021),
-	 (4,'17/04/2021','17','4','2020/2021',2021),
-	 (5,'05/03/2022','5','3','2021/2022',2022),
-	 (6,'28/05/2022','28','5','2021/2022',2022),
-	 (7,'11/02/2023','11','2','2022/2023',2023),
-	 (8,'28/05/2023','28','5','2022/2023',2023);
-
+	 (1,'25/01/2020','25','1/2020','2019/2020',2020),
+	 (2,'14/03/2020','14','3/2020','2019/2020',2020),
+	 (3,'27/02/2021','27','2/2021','2020/2021',2021),
+	 (4,'17/04/2021','17','4/2021','2020/2021',2021),
+	 (5,'05/03/2022','5','3/2022','2021/2022',2022),
+	 (6,'28/05/2022','28','5/2022','2021/2022',2022),
+	 (7,'11/02/2023','11','2/2023','2022/2023',2023),
+	 (8,'28/05/2023','28','5/2023','2022/2023',2023);
 ```
 
 En la **DIM_EQUIPO** se han añadido 2 equipos de cada liga, haciendo referencia a los 2 primeros clasificados de cada una de ellas. El script de inserción de datos es el siguiente:
