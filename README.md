@@ -13,7 +13,7 @@ Las tareas específicas a realizar se detallan a continuación.*
 
 **Solución:**  
 
-<image src="assets/DFM.png" alt="DFM">
+<image src="/Práctica_Inteligencia_de_Negocio/assets/DFM.png" alt="DFM">
 
 El **hecho** principal de este modelo de datos es **Partido**, que representa un evento deportivo, concretamente un encuentro de fútbol, en el que dos equipos compiten entre sí. Un Partido tiene los siguientes atributos:
 
