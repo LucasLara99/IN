@@ -71,7 +71,7 @@ En resumen, el uso de estas dimensiones y atributos permite analizar de forma de
 
 **Solución:**  
 
-<image src="assets/ModeloLogico.png" alt="Modelo Logico">
+<image src="/Práctica Inteligencia de Negocio/assets/ModeloLogico.png" alt="Modelo Logico">
 
 Para esta tarea se ha utilizado el **modelo en estrella**, el cual, tiene una tabla de hechos central que se conecta a una serie de tablas de dimensiones independientes. Esta estructura simplifica la escritura de consultas y las hace más rápidas y eficientes.
 
@@ -85,7 +85,7 @@ Una vez hecho el modelo lógico, creamos las tablas resultantes en Oracle. El sc
 
 Y las tablas resultantes de Oracle, con sus correspondientes claves primarias y foráneas, son las siguientes:
 
-<image src="assets/Diagrama_Oracle.png" alt="Tablas Oracle">  
+<image src="/Práctica Inteligencia de Negocio/assets/Diagrama_Oracle.png" alt="Tablas Oracle">  
 
 Una vez creadas las tablas, el siguiente paso es cargar datos en ellas. A continuación se muestran los scripts de inserción de datos en cada una de las tablas:
 
@@ -262,7 +262,7 @@ Por último, se ordena la información por competición y temporada.
 
 El resultado de la consulta es el siguiente:
 
-<image src="assets/ConsultaSQL1.JPG" alt="Consulta 1 SQL">
+<image src="/Práctica Inteligencia de Negocio/assets/ConsultaSQL1.JPG" alt="Consulta 1 SQL">
 
 ***
 
@@ -292,7 +292,7 @@ Luego, se usa una función condicional CASE dentro de la función de agregación
 
 Finalmente, se agrupa el resultado por el nombre del equipo y se ordena en orden descendente según el número de victorias locales, como se muestra en la siguiente imagen:
 
-<image src="assets/ConsultaSQL2.JPG" alt="Consulta 2 SQL">
+<image src="/Práctica Inteligencia de Negocio/assets/ConsultaSQL2.JPG" alt="Consulta 2 SQL">
 
 ***
 
@@ -350,7 +350,7 @@ La expresión común "c" utiliza la tabla generada por "p" para calcular los gol
 
 La consulta final utiliza un JOIN con la tabla de dimensión "dim_equipo" para obtener el nombre del equipo correspondiente a cada ID de equipo y muestra las columnas de puntos, goles a favor, goles en contra, diferencia de goles y posición, ordenadas por la posición. El resultado se muestra en la siguiente imagen:
 
-<image src="assets/ConsultaSQL3.JPG" alt="Consulta 3 SQL">
+<image src="/Práctica Inteligencia de Negocio/assets/ConsultaSQL3.JPG" alt="Consulta 3 SQL">
 
 ***
 
@@ -370,7 +370,7 @@ Además, se aplica un filtro en la cláusula WHERE que limita los datos de inter
 
 En resumen, la consulta devuelve una tabla con los valores de las medidas de interés para cada temporada, pero solo para los partidos que cumplen el filtro especificado. El resultado se muestra en la siguiente imagen:
 
-<image src="assets/ConsultaMDX1.JPG" alt="Consulta 1 MDX">
+<image src="/Práctica Inteligencia de Negocio/assets/ConsultaMDX1.JPG" alt="Consulta 1 MDX">
 
 ***
 
@@ -397,7 +397,7 @@ El miembro de la dimensión Fecha que se está utilizando en el filtro es la tem
 
 En resumen, esta consulta muestra la cantidad de tarjetas amarillas que recibieron los equipos locales y visitantes en la temporada 2022/2023, y ordena los equipos locales por la cantidad de tarjetas amarillas que recibieron. El resultado se muestra en la siguiente imagen:  
 
-<image src="assets/ConsultaMDX2.JPG" alt="Consulta 2 MDX">
+<image src="/Práctica Inteligencia de Negocio/assets/ConsultaMDX2.JPG" alt="Consulta 2 MDX">
 
 ***
 
@@ -441,7 +441,7 @@ Finalmente, se utiliza la función Order() para ordenar los miembros del conjunt
 
 Aunque el resultado parezca sencillo visualmente, se trata de una consulta compleja y de bastante interés estadístico. El resultado se muestra en la siguiente imagen:  
 
-<image src="assets/ConsultaMDX3.JPG" alt="Consulta 3 MDX">
+<image src="/Práctica Inteligencia de Negocio/assets/ConsultaMDX3.JPG" alt="Consulta 3 MDX">
 
 ***
 ## **Ejercicio 2 (0,8 ptos):**
@@ -462,7 +462,7 @@ En este ejercicio voy a realizar un análisis comparativo de las ofertas de cont
 
 En primer lugar, he realizado un estudio comparativo mediante tres gráficos de barras. Cada uno de estos gráficos muestra el número de series y películas en relación con el número total de elementos de cada plataforma, calculado con un atributo generado por mi utilizando la sentencia *COUNT(Title)*, lo que nos permite comparar la proporción de contenido de cada tipo en cada una de las plataformas. El dashboard resultante se muestra en la siguiente imagen:
 
-<image src="assets/Dashboard 1.png" alt="Dashboard 1">
+<image src="/Práctica Inteligencia de Negocio/assets/Dashboard 1.png" alt="Dashboard 1">
 
 Como se puede ver en el dashboard, la plataforma con mayor proporción de películas respecto al total de contenido es Amazon Prime, que con aproximadamente 8000 películas cuenta con 2000 series, seguida de Disney y, por último, Netflix. En cuanto a las series, la plataforma con mayor proporción es Netflix, con casi la mitad de series que películas, seguida de Disney y finalmente Amazon Prime.
 
@@ -470,15 +470,15 @@ Como se puede ver en el dashboard, la plataforma con mayor proporción de pelíc
 
 En segundo lugar, he realizado un estudio comparativo de las categorías de contenido de cada una de las plataformas. Para ello, he utilizado un gráfico de burbujas, donde el tamaño de cada burbuja representa el número de elementos de cada categoría. Personalmente, me parece un gráfico muy útil para este tipo de análisis, ya que permite visualizar de forma rápida y sencilla la proporción de cada categoría en cada plataforma. Este estudio esta formado por tres gráficos de burbujas, uno para cada plataforma, como se muestra a continuación:
 
-<image src="assets/Dashboard2.png" alt="Dashboard Amazon">  
+<image src="/Práctica Inteligencia de Negocio/assets/Dashboard2.png" alt="Dashboard Amazon">  
 
 ***
 
-<image src="assets/Dashboard3.png" alt="Dashboard Disney">
+<image src="/Práctica Inteligencia de Negocio/assets/Dashboard3.png" alt="Dashboard Disney">
 
 ***
 
-<image src="assets/Dashboard4.png" alt="Dashboard Netflix">
+<image src="/Práctica Inteligencia de Negocio/assets/Dashboard4.png" alt="Dashboard Netflix">
 
 Este estudio puede resultar muy interesante para los usuarios, ya que permite conocer las categorías de contenido más populares en cada plataforma, y así poder decidir cuál es la que mejor se adapta a sus gustos. Por ejemplo, si un usuario está interesado en ver películas de acción, puede ver que Disney es la plataforma que mejor encaja, ya que cuenta con un mayor número de películas de este género. En cambio, si lo que busca es ver dramas, Amazon Prime es la plataforma que mejor se adapta a sus gustos.
 
@@ -495,10 +495,10 @@ Para esta tarea se ha hecho uso de la herramienta Microsoft Power BI (se adjunta
 
 El primer estudio ha sido comparar el número de temporadas de las series de Netflix. Para ello, se ha utilizado un gráfico de sectores y un filtro para el atributo *duration* del dataset. En el gráfico que se muestra a continuación se puede ver que la mayoría de las series de Netflix tienen 1 temporada, seguido de 2 y 3:
 
-<image src="assets/PowerBI.JPG" alt="GraficoPowerBI">
+<image src="/Práctica Inteligencia de Negocio/assets/PowerBI.JPG" alt="GraficoPowerBI">
 
 El segundo estudio ha consistido en analizar la nacionalidad de los actores y actrices de las películas y series de Netflix. Para ello, se ha utilizado un mapa en árbol, donde se puede ver que la mayoría de los actores y actrices son estadounidenses, seguido de los indios y los británicos, como se muestra en la siguiente imagen:
 
-<image src="assets/PowerBI2.JPG" alt="GraficoPowerBI">
+<image src="/Práctica Inteligencia de Negocio/assets/PowerBI2.JPG" alt="GraficoPowerBI">
 
 Con esto se da por finalizada la práctica de Inteligencia de Negocio.
